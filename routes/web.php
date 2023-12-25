@@ -3,6 +3,8 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Inventory\InventoryController;
+use App\Http\Controllers\Purchases\SupplierController;
 use App\Http\Controllers\Setups\CategoryController;
 use App\Http\Controllers\Setups\UnitController;
 use App\Http\Controllers\Users\UserController;
@@ -51,5 +53,21 @@ Route::group(['middleware' => 'auth'], function () {
         Route::put('/units/{unit}', 'update')->name('units.update');
         Route::get('/units/{unit}/delete', 'delete')->name('units.delete');
         Route::delete('/units/{unit}/destroy', 'destroy')->name('units.destroy');
+    });
+
+    Route::controller(SupplierController::class)->group(function () {
+        Route::get('/suppliers', 'index')->name('suppliers');
+        Route::post('/suppliers', 'index')->name('suppliers.datatables');
+        Route::get('/suppliers/create', 'create')->name('suppliers.create');
+        Route::post('/suppliers/store', 'store')->name('suppliers.store');
+        Route::get('/suppliers/{supplier}', 'edit')->name('suppliers.edit');
+        Route::put('/suppliers/{supplier}', 'update')->name('suppliers.update');
+        Route::get('/suppliers/{supplier}/delete', 'delete')->name('suppliers.delete');
+        Route::delete('/suppliers/{supplier}/destroy', 'destroy')->name('suppliers.destroy');
+    });
+
+    Route::controller(InventoryController::class)->group(function () {
+        Route::get('/inventory', 'index')->name('inventory');
+        Route::get('/inventory/sa', 'index')->name('inventory.create');
     });
 });

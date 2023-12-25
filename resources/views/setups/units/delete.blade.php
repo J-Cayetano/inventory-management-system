@@ -58,8 +58,9 @@
                             </span>
                         </li>
                     </ul>
-                    <div class="my-4">
-                        <button type="submit" class="btn btn-danger w-100">Delete</button>
+                    <div class="my-4 d-flex">
+                        <a href="{{ route($key) }}" class="btn btn-ghost-secondary w-100 m-2">Cancel</a>
+                        <button type="submit" class="btn btn-danger w-100 m-2">Delete</button>
                     </div>
                     <p class="text-muted text-justify">
                         Please note that the data you are about to delete will only be <strong>soft deleted</strong>,
