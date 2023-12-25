@@ -7,10 +7,10 @@
 
         <div class="card card-md">
             <div class="card-header">
-                <h1 class="card-title h2 fw-bolder text-red">You are about to delete a Category!</h1>
+                <h1 class="card-title h2 fw-bolder text-red">You are about to delete a Supplier!</h1>
             </div>
             <div class="card-body">
-                <form method="POST" action="{{ route($key . '.destroy', $category->id) }}" enctype="multipart/form-data">
+                <form method="POST" action="{{ route($key . '.destroy', $supplier->id) }}" enctype="multipart/form-data">
                     @csrf
                     @method('DELETE')
                     <h3 class="mb-3">Please confirm the details before deleting.</h3>
@@ -25,8 +25,8 @@
                                 </svg>
                             </span>
                             <span class="col">
-                                <strong class="d-block">{{ $category->code }}</strong>
-                                <span class="d-block text-muted">Code</span>
+                                <strong class="d-block">{{ $supplier->name }}</strong>
+                                <span class="d-block text-muted">Name</span>
                             </span>
                         </li>
                         <li class="row g-2">
@@ -39,8 +39,8 @@
                                 </svg>
                             </span>
                             <span class="col">
-                                <strong class="d-block">{{ $category->title }}</strong>
-                                <span class="d-block text-muted">Title</span>
+                                <strong class="d-block">{{ $supplier->email }}</strong>
+                                <span class="d-block text-muted">Email</span>
                             </span>
                         </li>
                         <li class="row g-2">
@@ -53,7 +53,7 @@
                                 </svg>
                             </span>
                             <span class="col">
-                                <strong class="d-block">{{ $category->created_by }}</strong>
+                                <strong class="d-block">{{ $supplier->created_by }}</strong>
                                 <span class="d-block text-muted">Created By</span>
                             </span>
                         </li>
@@ -64,8 +64,7 @@
                     </div>
                     <p class="text-muted text-justify">
                         Please note that the data you are about to delete will only be <strong>soft deleted</strong>,
-                        meaning
-                        it will be marked as inactive but not permanently removed from the system.
+                        meaning it will be marked as inactive but not permanently removed from the system.
                     </p>
                 </form>
 

@@ -19,7 +19,7 @@
                             <div class="col-sm-3 p-5">
                                 <div class="form-group">
                                     <label class="required form-label"
-                                        for="code">{{ __('cruds.lines.fields.code') }}</label>
+                                        for="code">{{ __('cruds.units.fields.code') }}</label>
                                     <input class="form-control {{ $errors->has('code') ? 'is-invalid' : '' }}"
                                         type="text" name="code" id="code" value="{{ old('code', '') }}" required>
                                     @error('code')
@@ -31,7 +31,7 @@
                                         <span class="form-check-label">Use Suggested Code</span>
                                     </label>
                                     <span
-                                        class="help-block text-info fs-5">{{ __('cruds.lines.fields.code_helper') }}</span>
+                                        class="help-block text-info fs-5">{{ __('cruds.units.fields.code_helper') }}</span>
                                 </div>
 
                             </div>
@@ -45,7 +45,7 @@
                                         <span class="text-danger">{{ $errors->first('title') }}</span>
                                     @enderror
                                     <span
-                                        class="help-block text-info fs-5">{{ __('cruds.lines.fields.title_helper') }}</span>
+                                        class="help-block text-info fs-5">{{ __('cruds.units.fields.title_helper') }}</span>
                                 </div>
                             </div>
                         </div>
