@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Item;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Gate;
 
 class StoreItemRequest extends FormRequest
 {
@@ -11,7 +13,7 @@ class StoreItemRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return Gate::allows('items_store');
     }
 
     /**
@@ -22,7 +24,14 @@ class StoreItemRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'photo' => ['required', 'image', 'extensions:jpg,png'],
+            'code' => ['required', 'regex:/^[a-zA-Z0-9\-]+$/', 'unique:' . (new Item())->getTable() . ',code,NULL,id,deleted_at,NULL'],
+            'name' => ['required', 'string', 'unique:' . (new Item())->getTable() . ',name,NULL,id,deleted_at,NULL'],
+            'category_id' => ['required', 'integer'],
+            'supplier_id' => ['required', 'integer'],
+            'unit_id' => ['required', 'integer'],
+            'cost_price' => ['required', 'numeric'],
+            'selling_price' => ['required', 'numeric'],
         ];
     }
 }

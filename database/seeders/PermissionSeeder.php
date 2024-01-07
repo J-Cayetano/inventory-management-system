@@ -21,6 +21,7 @@ class PermissionSeeder extends Seeder
             'suppliers',
             'categories',
             'units',
+            'items',
         ];
 
         $methods = [

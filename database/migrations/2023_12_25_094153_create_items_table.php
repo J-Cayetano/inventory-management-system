@@ -13,7 +13,23 @@ return new class extends Migration
     {
         Schema::create('items', function (Blueprint $table) {
             $table->id();
+            $table->string('code', 50);
+            $table->string('name', 150);
+            $table->string('photo');
+            $table->foreignId('category_id');
+            $table->foreign('category_id')->references('id')->on('categories');
+            $table->foreignId('unit_id');
+            $table->foreign('unit_id')->references('id')->on('units');
+            $table->foreignId('supplier_id');
+            $table->foreign('supplier_id')->references('id')->on('suppliers');
+            $table->float('cost_price');
+            $table->float('selling_price');
             $table->timestamps();
+            $table->softDeletes();
+
+            $table->string('created_by');
+            $table->string('updated_by')->nullable();
+            $table->string('deleted_by')->nullable();
         });
     }
 

@@ -2,8 +2,9 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
-use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Inventory\InventoryController;
+use App\Http\Controllers\Inventory\ItemController;
 use App\Http\Controllers\Purchases\SupplierController;
 use App\Http\Controllers\Setups\CategoryController;
 use App\Http\Controllers\Setups\UnitController;
@@ -68,6 +69,10 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::controller(InventoryController::class)->group(function () {
         Route::get('/inventory', 'index')->name('inventory');
-        Route::get('/inventory/sa', 'index')->name('inventory.create');
+    });
+
+    Route::controller(ItemController::class)->group(function () {
+        Route::get('/inventory/items/create', 'create')->name('items.create');
+        Route::post('/inventory/items/store', 'store')->name('items.store');
     });
 });

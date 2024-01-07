@@ -70,6 +70,7 @@
                     <table id="{{ $key }}" class="table card-table table-vcenter text-nowrap datatable">
                         <thead>
                             <tr>
+                                <th>Code</th>
                                 <th>Name</th>
                                 <th>Email</th>
                                 <th>Contact</th>
@@ -117,6 +118,10 @@
             "serverSide": true,
             "dom": '<"entries-datatable" l><t><r><"information-datatable" i><"pagination-datatable" p>',
             "columns": [{
+                    data: 'code',
+                    name: 'code'
+                },
+                {
                     data: 'name',
                     name: 'name'
                 },
@@ -171,6 +176,31 @@
 
         $('#deactivate_switch').on('click', function() {
             datatable.ajax.reload();
+        });
+
+        document.addEventListener("DOMContentLoaded", function() {
+            var el;
+            window.TomSelect && (new TomSelect(el = document.getElementById('select-states'), {
+                copyClassesToDropdown: false,
+                dropdownParent: 'body',
+                controlInput: '<input>',
+                render: {
+                    item: function(data, escape) {
+                        if (data.customProperties) {
+                            return '<div><span class="dropdown-item-indicator">' + data
+                                .customProperties + '</span>' + escape(data.text) + '</div>';
+                        }
+                        return '<div>' + escape(data.text) + '</div>';
+                    },
+                    option: function(data, escape) {
+                        if (data.customProperties) {
+                            return '<div><span class="dropdown-item-indicator">' + data
+                                .customProperties + '</span>' + escape(data.text) + '</div>';
+                        }
+                        return '<div>' + escape(data.text) + '</div>';
+                    },
+                },
+            }));
         });
     </script>
 @endsection

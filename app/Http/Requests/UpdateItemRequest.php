@@ -22,7 +22,8 @@ class UpdateItemRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'code' => ['required', 'regex:/^[a-zA-Z0-9\-]+$/'],
+            
         ];
     }
 }

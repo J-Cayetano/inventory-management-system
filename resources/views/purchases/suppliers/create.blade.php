@@ -16,7 +16,26 @@
                         @csrf
                         @method('POST')
                         <div class="row g-2">
-                            <div class="col-sm-12 p-5">
+                            <div class="col-sm-4 p-5">
+                                <div class="form-group">
+                                    <label class="required form-label"
+                                        for="code">{{ __('cruds.categories.fields.code') }}</label>
+                                    <input class="form-control {{ $errors->has('code') ? 'is-invalid' : '' }}"
+                                        type="text" name="code" id="code" value="{{ old('code', '') }}" required>
+                                    @error('code')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+
+                                    <label class="form-check form-switch mt-2 help-block fs-5">
+                                        <input class="form-check-input" id="suggested-code" type="checkbox">
+                                        <span class="form-check-label">Use Suggested Code</span>
+                                    </label>
+                                    <span
+                                        class="help-block text-info fs-5">{{ __('cruds.categories.fields.code_helper') }}</span>
+                                </div>
+
+                            </div>
+                            <div class="col-sm-8 p-5">
                                 <div class="form-group">
                                     <label class="required form-label" for="name">Name</label>
                                     <input class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}"
@@ -34,7 +53,8 @@
                                 <div class="form-group">
                                     <label class="required form-label" for="city">City</label>
                                     <input class="form-control word-case {{ $errors->has('city') ? 'is-invalid' : '' }}"
-                                        type="text" name="city" id="city" value="{{ old('city', '') }}" required>
+                                        type="text" name="city" id="city" value="{{ old('city', '') }}"
+                                        required>
                                     @error('city')
                                         <span class="text-danger">{{ $errors->first('city') }}</span>
                                     @enderror
@@ -119,6 +139,47 @@
                     words[i] = words[i].charAt(0).toUpperCase() + words[i].slice(1);
                 }
                 $(this).val(words.join(" "));
+            });
+
+            $('#name').on('input', function() {
+                if ($("#suggested-code").prop("checked")) {
+                    var abbreviatedTitle = abbreviateWord($(this).val());
+                    $("#code").val(abbreviatedTitle);
+                }
+            });
+
+            $("#suggested-code").change(function() {
+                if ($(this).prop("checked")) {
+                    $("#code").prop("readonly", true);
+                    $("#code").addClass("bg-gray-500");
+                } else {
+                    $("#code").prop("readonly", false);
+                    $("#code").removeClass("bg-gray-500");
+                }
+            });
+
+            function abbreviateWord(word) {
+                word = word.toLowerCase();
+                var result = "";
+                var letters = ['a', 'e', 'i', 'o', 'u'];
+                for (var i = 0; i < word.length; i++) {
+                    var currentChar = word[i];
+                    var nextChar = i < word.length - 1 ? word[i + 1] : null;
+
+                    if (letters.indexOf(currentChar) === -1) {
+                        if (nextChar === null || currentChar !== nextChar) {
+                            result += currentChar;
+                        }
+                    }
+                }
+                result = result.replace(/\s+/g, '-');
+                return result.toUpperCase();
+            }
+
+            $("#code").on("input", function() {
+                var inputValue = $(this).val();
+                var uppercaseValue = inputValue.toUpperCase();
+                $(this).val(uppercaseValue);
             });
 
             $(".upper-case").on("input", function() {

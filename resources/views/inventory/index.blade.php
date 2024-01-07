@@ -50,11 +50,10 @@
                 <div class="subheader mb-2">Supplier</div>
                 <div>
                     <select name="supplier" class="form-select">
-                        <option>United Kingdom</option>
-                        <option>USA</option>
-                        <option>Germany</option>
-                        <option>Poland</option>
-                        <option>Other…</option>
+                        <option selected disabled>Select a Supplier</option>
+                        @foreach ($suppliers as $supplier)
+                            <option>{{ $supplier->name }}</option>
+                        @endforeach
                     </select>
                 </div>
                 <div class="mt-5">
@@ -83,27 +82,26 @@
                         {{-- Actions --}}
                         <div class="d-flex">
                             <a href="#" class="card-btn"><!-- Download SVG icon from http://tabler-icons.io/i/mail -->
-                                <svg xmlns="http://www.w3.org/2000/svg" class="icon me-2 text-muted" width="24"
-                                    height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                                    stroke-linecap="round" stroke-linejoin="round">
-                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-eye"
+                                    width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                                    fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                    <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
                                     <path
-                                        d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z">
-                                    </path>
-                                    <path d="M3 7l9 6l9 -6"></path>
+                                        d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" />
                                 </svg>
-                                Email</a>
+                                View</a>
                             <a href="#"
                                 class="card-btn"><!-- Download SVG icon from http://tabler-icons.io/i/phone -->
-                                <svg xmlns="http://www.w3.org/2000/svg" class="icon me-2 text-muted" width="24"
-                                    height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                                    stroke-linecap="round" stroke-linejoin="round">
-                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-settings"
+                                    width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                                    fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                     <path
-                                        d="M5 4h4l2 5l-2.5 1.5a11 11 0 0 0 5 5l1.5 -2.5l5 2v4a2 2 0 0 1 -2 2a16 16 0 0 1 -15 -15a2 2 0 0 1 2 -2">
-                                    </path>
+                                        d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z" />
+                                    <path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
                                 </svg>
-                                Call</a>
+                                Manage</a>
                         </div>
                     </div>
                 </div>
