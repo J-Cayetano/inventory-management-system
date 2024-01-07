@@ -15,6 +15,7 @@ class SupplierSeeder extends Seeder
     {
         Supplier::insert([
             [
+                'code' => 'SMSNG',
                 'name' => 'Samsung',
                 'city' => 'Makati',
                 'address' => 'Bld. 9, St. Makati',
@@ -24,6 +25,7 @@ class SupplierSeeder extends Seeder
                 'created_by' => 'imsystem.0001@gmail.com',
             ],
             [
+                'code' => 'LG',
                 'name' => 'LG',
                 'city' => 'Mandaluyong',
                 'address' => 'Bld. 8, St. Mandaluyonh',
@@ -33,6 +35,7 @@ class SupplierSeeder extends Seeder
                 'created_by' => 'imsystem.0001@gmail.com',
             ],
             [
+                'code' => 'XM',
                 'name' => 'Xiaomi',
                 'city' => 'Montalban',
                 'address' => 'Bld. 7, St. Montalban',

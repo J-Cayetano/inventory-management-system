@@ -55,6 +55,10 @@ class SupplierController extends Controller
                 ));
             });
 
+            $datatable->editColumn('code', function ($row) {
+                return $row->code ? $row->code : '';
+            });
+
             $datatable->editColumn('name', function ($row) {
                 return $row->name ? $row->name : '';
             });

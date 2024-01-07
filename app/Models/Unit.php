@@ -7,6 +7,7 @@ use App\Traits\Models\GlobalCasting;
 use App\Traits\Models\GlobalMutators;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Unit extends Model
 {
@@ -19,4 +20,9 @@ class Unit extends Model
         'updated_by',
         'deleted_by',
     ];
+
+    public function items(): HasMany
+    {
+        return $this->hasMany(Item::class);
+    }
 }

@@ -24,6 +24,7 @@ class UpdateSupplierRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'code' => ['required', 'regex:/^[a-zA-Z0-9\-]+$/'],
             'name' => ['required', 'string'],
             'email' => ['required', 'string'],
             'contact' => ['required', 'string'],
