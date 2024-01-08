@@ -19,15 +19,15 @@
                             {{-- Photo --}}
                             <div class="col-sm-4 p-5">
                                 <div class="form-group">
-                                    <label class="required form-label" for="photo">Photo</label>
-                                    <div class="col-auto mb-2"><span class="avatar avatar-xl mb-2"
-                                            style="background-image: url(./static/avatars/000m.jpg)"></span>
+                                    <label class="required form-label" for="photo_file">Photo</label>
+                                    <div class="col-auto mb-2">
+                                        <img class="avatar avatar-xl mb-2" src="" id="photo-display">
                                     </div>
-                                    <input type="file"
-                                        class="form-control {{ $errors->has('photo') ? 'is-invalid' : '' }}" name="photo"
-                                        id="photo" required>
-                                    @error('photo')
-                                        <span class="text-danger">{{ $errors->first('photo') }}</span>
+                                    <input type="file" accept="image/png, image/jpg, image/jpeg"
+                                        class="form-control {{ $errors->has('photo_file') ? 'is-invalid' : '' }}"
+                                        name="photo_file" id="photo_file" required>
+                                    @error('photo_file')
+                                        <span class="text-danger">{{ $errors->first('photo_file') }}</span>
                                     @enderror
                                     <span
                                         class="help-block text-info fs-5">{{ __('cruds.items.fields.photo_helper') }}</span>
@@ -276,6 +276,17 @@
                 result = result.replace(/\s+/g, '-');
                 return result.toUpperCase();
             }
+
+            $('#photo_file').on('change', function() {
+                var file = this.files[0];
+                if (file) {
+                    var reader = new FileReader();
+                    reader.onload = function(e) {
+                        $('#photo-display').attr('src', e.target.result);
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
         });
     </script>
 @endsection

@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers\Inventory;
 
+use Exception;
 use App\Models\Item;
+use App\Models\Unit;
+use App\Models\Category;
+use App\Models\Supplier;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\StoreItemRequest;
 use App\Http\Requests\UpdateItemRequest;
-use App\Models\Category;
-use App\Models\Supplier;
-use App\Models\Unit;
 use App\Traits\Controllers\ResponseTrait;
 
 class ItemController extends Controller
@@ -58,6 +59,22 @@ class ItemController extends Controller
     public function store(StoreItemRequest $request)
     {
         abort_if(Gate::denies($this->model->getTable() . '_store'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+
+        try {
+            $photo_path = $request->file('photo_file')->store("items/photo", 'public');
+
+            $request->merge([
+                "created_by" => $request->user()->email,
+                "photo" => $photo_path,
+            ]);
+
+            $this->model->create($request->all());
+
+            return redirect()->to(route('inventory'))->with('success', "Item $request->name created successfully!");
+        } catch (Exception $e) {
+            return $this->redirectResponse('error', "Item created unsuccessfully!");
+        }
 
         return $request->validated();
     }

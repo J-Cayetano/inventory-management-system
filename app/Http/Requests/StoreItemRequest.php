@@ -24,7 +24,7 @@ class StoreItemRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'photo' => ['required', 'image', 'extensions:jpg,png'],
+            'photo_file' => ['required', 'image', 'mimes:jpg,png,jpeg'],
             'code' => ['required', 'regex:/^[a-zA-Z0-9\-]+$/', 'unique:' . (new Item())->getTable() . ',code,NULL,id,deleted_at,NULL'],
             'name' => ['required', 'string', 'unique:' . (new Item())->getTable() . ',name,NULL,id,deleted_at,NULL'],
             'category_id' => ['required', 'integer'],
