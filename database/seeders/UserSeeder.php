@@ -16,8 +16,22 @@ class UserSeeder extends Seeder
     {
         User::insert([
             [
-                'name' => 'Admin',
+                'name' => 'Super Admin',
                 'email' => 'imsystem.0001@gmail.com',
+                'password' => Hash::make('password'),
+                'created_at' => now(),
+                'created_by' => 'imsystem.0001@gmail.com',
+            ],
+            [
+                'name' => 'Admin',
+                'email' => 'imsystem.0002@gmail.com',
+                'password' => Hash::make('password'),
+                'created_at' => now(),
+                'created_by' => 'imsystem.0001@gmail.com',
+            ],
+            [
+                'name' => 'Technician',
+                'email' => 'imsystem.0003@gmail.com',
                 'password' => Hash::make('password'),
                 'created_at' => now(),
                 'created_by' => 'imsystem.0001@gmail.com',

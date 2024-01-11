@@ -15,20 +15,32 @@ class CategorySeeder extends Seeder
     {
         Category::insert([
             [
-                'code' => 'MNTR',
-                'title' => 'Monitor',
+                'code' => 'ELCTC-CMPNTS',
+                'title' => 'Electrical Components',
                 'created_at' => now(),
                 'created_by' => 'imsystem.0001@gmail.com',
             ],
             [
-                'code' => 'LPTP',
-                'title' => 'Laptop',
+                'code' => 'ENGN-CMPNTS',
+                'title' => 'Engine Components',
                 'created_at' => now(),
                 'created_by' => 'imsystem.0001@gmail.com',
             ],
             [
-                'code' => 'KYBR',
-                'title' => 'Keyboard',
+                'code' => 'EXH-SYS',
+                'title' => 'Exhaust Systems',
+                'created_at' => now(),
+                'created_by' => 'imsystem.0001@gmail.com',
+            ],
+            [
+                'code' => 'FL-SYS',
+                'title' => 'Fuel Systems',
+                'created_at' => now(),
+                'created_by' => 'imsystem.0001@gmail.com',
+            ],
+            [
+                'code' => 'SPSN-BRK',
+                'title' => 'Suspension and Brake',
                 'created_at' => now(),
                 'created_by' => 'imsystem.0001@gmail.com',
             ],

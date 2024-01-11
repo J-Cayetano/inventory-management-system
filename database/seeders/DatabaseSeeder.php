@@ -18,6 +18,8 @@ class DatabaseSeeder extends Seeder
             PermissionSeeder::class,
             CategorySeeder::class,
             SupplierSeeder::class,
+            UnitSeeder::class,
+            ItemSeeder::class,
         ]);
     }
 }

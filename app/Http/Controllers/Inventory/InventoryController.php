@@ -25,13 +25,12 @@ class InventoryController extends Controller
 
     public function index(Request $request)
     {
-        // return $this->   item->paginate();
         return view('inventory.index', [
             'title' => $this->title,
             'key' => 'items',
             'categories' => $this->category->all(),
             'suppliers' => $this->supplier->all(),
-            'items' => $this->item->paginate(),
+            'items' => $this->item->paginate(10),
         ]);
     }
 }

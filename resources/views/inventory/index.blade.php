@@ -67,7 +67,7 @@
             </form>
         </div>
         <div class="col-9">
-            <div class="row row-cards">
+            <div class="row row-cards mb-5">
                 @foreach ($items as $item)
                     <div class="col-md-6 col-lg-4">
                         <div class="card">
@@ -109,7 +109,7 @@
                     </div>
                 @endforeach
             </div>
-            {!! $items->links() !!}
+            {{ $items->links() }}
         </div>
     </div>
 @endsection

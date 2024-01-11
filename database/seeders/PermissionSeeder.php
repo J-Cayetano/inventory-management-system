@@ -40,8 +40,22 @@ class PermissionSeeder extends Seeder
             }
         }
 
+        $permissions[] = [
+            'title' => 'dashboard_access'
+        ];
+
+        $permissions[] = [
+            'title' => 'inventory_management'
+        ];
+
+        $permissions[] = [
+            'title' => 'user_management'
+        ];
+
         Permission::insert($permissions);
         $permissions = Permission::all();
         Role::find(1)->permissions()->sync($permissions->pluck('id'));
+        Role::find(2)->permissions()->sync($permissions->pluck('id'));
+        Role::find(3)->permissions()->sync($permissions->pluck('id'));
     }
 }
