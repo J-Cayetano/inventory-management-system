@@ -17,9 +17,15 @@ class LoginController extends Controller
         return view('auth.login');
     }
 
+    /**
+     * Login Function
+     *  > LoginRequest validates the incoming request body to ensure secured payload.
+     */
     public function authenticate(LoginRequest $request)
     {
+        // Checks if Email and Password are valied and if the method of the request is POST
         if (Auth::attempt($request->validated()) && request()->isMethod('POST')) {
+            // Will regenerate session (Browser session nung naglogin, masstore sa Database Sessions table)
             $request->session()->regenerate();
             return redirect()->to(route('dashboard'));
         }

@@ -100,6 +100,7 @@
 
 @section('scripts')
     <script src="{{ asset('dist/libs/datatables/datatables.min.js') }}"></script>
+    {{-- DATATBLE Javascript - package para magawa yung serverside datatable --}}
     <script>
         var datatable = $('#{{ $key }}').DataTable({
             "ajax": {
@@ -178,6 +179,7 @@
             datatable.ajax.reload();
         });
 
+        // Default ng pakage para gumana yung design
         document.addEventListener("DOMContentLoaded", function() {
             var el;
             window.TomSelect && (new TomSelect(el = document.getElementById('select-states'), {

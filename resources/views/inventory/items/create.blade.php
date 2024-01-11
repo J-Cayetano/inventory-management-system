@@ -178,6 +178,7 @@
     <script>
         $(document).ready(function() {
 
+
             $(".word-case").on("input", function() {
                 var inputValue = $(this).val();
                 var words = inputValue.split(" ");
@@ -193,6 +194,7 @@
                 $(this).val(uppercaseValue);
             });
 
+            // Gada nag ttype sa field na Name or may ID na name, ginagawan niya ng suggested code
             $('#name').on('input', function() {
                 if ($("#suggested-code").prop("checked")) {
                     var abbreviatedTitle = abbreviateWord($(this).val());
@@ -200,6 +202,7 @@
                 }
             });
 
+            // For enabling and disabling nun suggested code
             $("#suggested-code").change(function() {
                 if ($(this).prop("checked")) {
                     $("#code").prop("readonly", true);
@@ -229,12 +232,6 @@
             }
 
             $("#code").on("input", function() {
-                var inputValue = $(this).val();
-                var uppercaseValue = inputValue.toUpperCase();
-                $(this).val(uppercaseValue);
-            });
-
-            $(".upper-case").on("input", function() {
                 var inputValue = $(this).val();
                 var uppercaseValue = inputValue.toUpperCase();
                 $(this).val(uppercaseValue);
@@ -277,6 +274,7 @@
                 return result.toUpperCase();
             }
 
+            // Pinapakita yung inupload na image
             $('#photo_file').on('change', function() {
                 var file = this.files[0];
                 if (file) {
