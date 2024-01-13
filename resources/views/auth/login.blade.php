@@ -7,7 +7,7 @@
         <div class="col-12 col-lg-6 col-xl-4 border-top-wide border-primary d-flex flex-column justify-content-center">
             <div class="container container-tight my-5 px-lg-5">
                 <div class="text-center mb-4">
-                    <h1 class="h1 text-center mb-3">Inventory Management System</h2>
+                    <h1 class="h1 text-center mb-3">{{ config('app.name') }}<br>Inventory Management System</h2>
                 </div>
                 <h2 class="h3 text-center mb-3">
                     Login to your account
