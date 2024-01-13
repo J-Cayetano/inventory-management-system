@@ -109,7 +109,7 @@
                     </div>
                 @endforeach
             </div>
-            {{ $items->links() }}
+            {{ $items->withQueryString()->links() }}
         </div>
     </div>
 @endsection
