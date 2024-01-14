@@ -147,6 +147,8 @@ return [
             'name_helper'                  => 'Item name should be its official name.',
             'code'                         => 'Code',
             'code_helper'                  => 'Codes are all uppercase letters, and it should be an abbreviated form or key word of the name.',
+            'description'                         => 'Description',
+            'description_helper'                  => 'Describe the item that will be created.',
             'photo'                         => 'Photo',
             'photo_helper'                  => 'Photo should only be in JPEG, JPG, or PNG format.',
             'category_id'                      => 'Category',

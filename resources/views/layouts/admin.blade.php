@@ -45,6 +45,7 @@
                             <h2 class="page-title">
                                 @yield('title')
                             </h2>
+                            <p>Greetings, {{ Auth::user()->name }}!</p>
                         </div>
                     </div>
                 </div>

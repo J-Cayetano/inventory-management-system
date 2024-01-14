@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('code', 50);
             $table->string('name', 150);
+            $table->text('description')->nullable();
             $table->string('photo');
             $table->foreignId('category_id');
             $table->foreign('category_id')->references('id')->on('categories');

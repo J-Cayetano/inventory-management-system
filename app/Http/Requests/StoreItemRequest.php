@@ -27,11 +27,12 @@ class StoreItemRequest extends FormRequest
             'photo_file' => ['required', 'image', 'mimes:jpg,png,jpeg'],
             'code' => ['required', 'regex:/^[a-zA-Z0-9\-]+$/', 'unique:' . (new Item())->getTable() . ',code,NULL,id,deleted_at,NULL'],
             'name' => ['required', 'string', 'unique:' . (new Item())->getTable() . ',name,NULL,id,deleted_at,NULL'],
+            'description' => ['string'],
             'category_id' => ['required', 'integer'],
             'supplier_id' => ['required', 'integer'],
             'unit_id' => ['required', 'integer'],
-            'cost_price' => ['required', 'numeric'],
-            'selling_price' => ['required', 'numeric'],
+            'cost_price' => ['required', 'numeric', 'lt:selling_price'],
+            'selling_price' => ['required', 'numeric', 'gt:cost_price'],
         ];
     }
 }
