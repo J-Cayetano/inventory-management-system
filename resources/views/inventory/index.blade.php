@@ -1,40 +1,19 @@
 @extends('layouts.admin')
 
-@section('title', $title)
-
 @section('contents')
     <div class="row mb-5">
-        <div class="col-sm-9">
-            <div class="input-icon">
-                <input type="text" value="" class="form-control" placeholder="Search…">
-                <span class="input-icon-addon">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24"
-                        stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                        <path d="M10 10m-7 0a7 7 0 1 0 14 0a7 7 0 1 0 -14 0"></path>
-                        <path d="M21 21l-6 -6"></path>
-                    </svg>
-                </span>
-            </div>
-        </div>
-        <div class="col-sm-3">
-            <div class="g-2 text-muted">
-                <div class="input-icon d-inline-block">
-                    <a class="btn btn-primary" href="{{ route($key . '.create') }}">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-plus" width="24"
-                            height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
-                            stroke-linecap="round" stroke-linejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                            <path d="M12 5l0 14"></path>
-                            <path d="M5 12l14 0"></path>
-                        </svg>
-                        Add New Item
-                    </a>
-                </div>
+        <div class="col"></div>
+        <div class="col-auto">
+            <div class="d-flex">
+                <input type="search" id="searchInput" class="form-control d-inline-block w-9 me-3" value=""
+                    placeholder="Search Product…">
+                <button type="button" id="searchSubmitBtn" class="btn btn-primary me-2">
+                    {{ __('Search') }}
+                </button>
             </div>
         </div>
     </div>
+
     <div class="row g-4">
         <div class="col-3">
             <form action="./" method="get" autocomplete="off" novalidate>
@@ -67,49 +46,29 @@
             </form>
         </div>
         <div class="col-9">
+            {{ $items->onEachSide(1)->links() }}
+
             <div class="row row-cards mb-5">
                 @foreach ($items as $item)
-                    <div class="col-md-6 col-lg-4">
-                        <div class="card">
-                            <div class="card-body p-4 text-center">
-                                <span class="avatar avatar-xl mb-3 rounded"
-                                    style="background-image: url({{ asset('storage/' . $item->photo) }})"></span>
-                                <h3 class="m-0 mb-1"><a href="#">{{ $item->name }}</a></h3>
-                                <div class="text-muted">{{ $item->supplier->name }}</div>
-                                <div class="mt-3">
-                                    <span class="badge bg-purple-lt">{{ $item->category->title }}</span>
+                    <div class="col-lg-4">
+                        <a href="#" class="card card-link card-link-pop">
+                            @if (Carbon\Carbon::now()->diffInDays(Carbon\Carbon::parse($item->created_at)) < 7)
+                                <div class="ribbon bg-red">{{ __('New') }}</div>
+                            @endif
+                            <div class="empty">
+                                <div class="empty-img"><img src="{{ asset('storage/' . $item->photo) }}" height="128"
+                                        alt="{{ $item->name }}">
                                 </div>
+                                <p class="empty-title fs-3">
+                                    {{ strlen($item->name) > 40 ? substr($item->name, 0, 37) . '...' : $item->name }}</p>
+                                <span class="badge bg-secondary-lt">{{ $item->category->title }}</span>
                             </div>
-                            {{-- Actions --}}
-                            <div class="d-flex">
-                                <a href="#"
-                                    class="card-btn"><!-- Download SVG icon from http://tabler-icons.io/i/mail -->
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-eye"
-                                        width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
-                                        stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                        <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
-                                        <path
-                                            d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6" />
-                                    </svg>
-                                    View</a>
-                                <a href="#"
-                                    class="card-btn"><!-- Download SVG icon from http://tabler-icons.io/i/phone -->
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-settings"
-                                        width="24" height="24" viewBox="0 0 24 24" stroke-width="2"
-                                        stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                        <path
-                                            d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z" />
-                                        <path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
-                                    </svg>
-                                    Manage</a>
-                            </div>
-                        </div>
+                        </a>
                     </div>
                 @endforeach
             </div>
-            {{ $items->links() }}
+
+            {{ $items->onEachSide(1)->links() }}
         </div>
     </div>
 @endsection
