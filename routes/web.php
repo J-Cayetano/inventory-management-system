@@ -74,5 +74,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::controller(ItemController::class)->group(function () {
         Route::get('/inventory/items/create', 'create')->name('items.create');
         Route::post('/inventory/items/store', 'store')->name('items.store');
+        Route::get('/inventory/items/{item}', 'show')->name('items.show');
     });
 });

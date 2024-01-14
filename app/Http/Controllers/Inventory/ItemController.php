@@ -60,7 +60,6 @@ class ItemController extends Controller
     {
         abort_if(Gate::denies($this->model->getTable() . '_store'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-
         try {
             $photo_path = $request->file('photo_file')->store("items/photo", 'public');
 
@@ -73,7 +72,7 @@ class ItemController extends Controller
 
             return redirect()->to(route('inventory'))->with('success', "Item $request->name created successfully!");
         } catch (Exception $e) {
-            return $this->redirectResponse('error', "Item created unsuccessfully!");
+            return redirect()->to(route('inventory'))->with('error', $e->getMessage());
         }
 
         return $request->validated();
@@ -82,9 +81,11 @@ class ItemController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Item $item)
+    public function show($item)
     {
-        //
+        $item = $this->model->find(decrypt($item));
+        $title = $this->title;
+        return view('inventory.items.show', compact('item', 'title'));
     }
 
     /**

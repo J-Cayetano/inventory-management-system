@@ -63,6 +63,21 @@
                             </div>
                         </div>
                         <div class="row g-2">
+                            <div class="col p-5">
+                                <div class="form-group">
+                                    <label class="form-label">Description
+                                        <span
+                                            class="help-block text-info fs-5">{{ __('cruds.items.fields.description_helper') }}</span>
+                                    </label>
+                                    @error('description')
+                                        <span class="text-danger">{{ $errors->first('description') }}</span>
+                                    @enderror
+
+                                    <textarea id="tinymce-mytextarea" name="description"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row g-2">
                             <div class="col-sm-4 p-5">
                                 <div class="form-group">
                                     <label class="required form-label" for="category_id">Category</label>
@@ -149,7 +164,6 @@
                                     class="help-block text-info fs-5">{{ __('cruds.items.fields.selling_price_helper') }}</span>
                             </div>
                         </div>
-
                         <div class="text-end">
                             <a href="{{ route('inventory') }}" class="btn btn-secondary">
                                 {{ trans('global.cancel') }}
@@ -175,6 +189,34 @@
 @endsection
 
 @section('scripts')
+    <script src="{{ asset('dist/libs/tinymce/tinymce.min.js') }}" defer></script>
+    <script>
+        // @formatter:off
+        document.addEventListener("DOMContentLoaded", function() {
+            let options = {
+                selector: '#tinymce-mytextarea',
+                height: 300,
+                menubar: false,
+                statusbar: false,
+                plugins: [
+                    'advlist autolink lists link image charmap print preview anchor',
+                    'searchreplace visualblocks code fullscreen',
+                    'insertdatetime media table paste code help wordcount'
+                ],
+                toolbar: 'undo redo | formatselect | ' +
+                    'bold italic backcolor | alignleft aligncenter ' +
+                    'alignright alignjustify | bullist numlist outdent indent | ' +
+                    'removeformat',
+                content_style: 'body { font-family: -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, sans-serif; font-size: 14px; -webkit-font-smoothing: antialiased; }'
+            }
+            if (localStorage.getItem("tablerTheme") === 'dark') {
+                options.skin = 'oxide-dark';
+                options.content_css = 'dark';
+            }
+            tinyMCE.init(options);
+        })
+        // @formatter:on
+    </script>
     <script>
         $(document).ready(function() {
 
