@@ -17,13 +17,13 @@ class UnitSeeder extends Seeder
             [
                 'code' => 'PC',
                 'title' => 'Piece',
-                'created_at' => now(),
+                'created_at' => '2024-01-01 05:12:03',
                 'created_by' => 'imsystem.0001@gmail.com',
             ],
             [
                 'code' => 'PCK',
                 'title' => 'Pack',
-                'created_at' => now(),
+                'created_at' => '2024-01-01 05:12:03',
                 'created_by' => 'imsystem.0001@gmail.com',
             ],
         ]);
