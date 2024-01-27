@@ -25,6 +25,10 @@ return new class extends Migration
             $table->foreign('supplier_id')->references('id')->on('suppliers');
             $table->float('cost_price');
             $table->float('selling_price');
+            $table->integer('quantity_stock')->default(0);
+            $table->integer('quantity_sold')->default(0);
+            $table->integer('minimum_stock')->default(0);
+            $table->integer('maximum_stock')->nullable();
             $table->timestamps();
             $table->softDeletes();
 

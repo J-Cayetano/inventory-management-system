@@ -25,7 +25,11 @@ class ItemSeeder extends Seeder
                 "supplier_id" => 3,
                 "cost_price" => 1300.0,
                 "selling_price" => 1500.0,
-                "created_at" => now(),
+                'quantity_stock' => 0,
+                'quantity_sold' => 0,
+                'minimum_stock' => 5,
+                'maximum_stock' => null,
+                "created_at" => '2024-01-01 05:12:03',
                 "created_by" => "imsystem.0001@gmail.com"
             ],
             [
@@ -38,7 +42,11 @@ class ItemSeeder extends Seeder
                 "supplier_id" => 2,
                 "cost_price" => 1200.0,
                 "selling_price" => 1500.0,
-                "created_at" => now(),
+                'quantity_stock' => 0,
+                'quantity_sold' => 0,
+                'minimum_stock' => 5,
+                'maximum_stock' => null,
+                "created_at" => '2024-01-01 05:12:03',
                 "created_by" => "imsystem.0001@gmail.com"
             ],
             [
@@ -51,7 +59,11 @@ class ItemSeeder extends Seeder
                 "supplier_id" => 4,
                 "cost_price" => 750.0,
                 "selling_price" => 1100.0,
-                "created_at" => now(),
+                'quantity_stock' => 0,
+                'quantity_sold' => 0,
+                'minimum_stock' => 5,
+                'maximum_stock' => null,
+                "created_at" => '2024-01-01 05:12:03',
                 "created_by" => "imsystem.0001@gmail.com"
             ],
             [
@@ -64,7 +76,11 @@ class ItemSeeder extends Seeder
                 "supplier_id" => 4,
                 "cost_price" => 750.0,
                 "selling_price" => 1100.0,
-                "created_at" => now(),
+                'quantity_stock' => 0,
+                'quantity_sold' => 0,
+                'minimum_stock' => 5,
+                'maximum_stock' => null,
+                "created_at" => '2024-01-01 05:12:03',
                 "created_by" => "imsystem.0001@gmail.com"
             ],
             [
@@ -77,7 +93,11 @@ class ItemSeeder extends Seeder
                 "supplier_id" => 4,
                 "cost_price" => 900.0,
                 "selling_price" => 1250.0,
-                "created_at" => now(),
+                'quantity_stock' => 0,
+                'quantity_sold' => 0,
+                'minimum_stock' => 5,
+                'maximum_stock' => null,
+                "created_at" => '2024-01-01 05:12:03',
                 "created_by" => "imsystem.0001@gmail.com"
             ],
             [
@@ -90,7 +110,11 @@ class ItemSeeder extends Seeder
                 "supplier_id" => 4,
                 "cost_price" => 1230.0,
                 "selling_price" => 1550.0,
-                "created_at" => now(),
+                'quantity_stock' => 0,
+                'quantity_sold' => 0,
+                'minimum_stock' => 5,
+                'maximum_stock' => null,
+                "created_at" => '2024-01-01 05:12:03',
                 "created_by" => "imsystem.0001@gmail.com"
             ],
             [
@@ -103,7 +127,11 @@ class ItemSeeder extends Seeder
                 "supplier_id" => 4,
                 "cost_price" => 650.0,
                 "selling_price" => 1000.0,
-                "created_at" => now(),
+                'quantity_stock' => 0,
+                'quantity_sold' => 0,
+                'minimum_stock' => 5,
+                'maximum_stock' => null,
+                "created_at" => '2024-01-01 05:12:03',
                 "created_by" => "imsystem.0001@gmail.com"
             ],
             [
@@ -116,7 +144,11 @@ class ItemSeeder extends Seeder
                 "supplier_id" => 1,
                 "cost_price" => 1700.0,
                 "selling_price" => 2000.0,
-                "created_at" => now(),
+                'quantity_stock' => 0,
+                'quantity_sold' => 0,
+                'minimum_stock' => 5,
+                'maximum_stock' => null,
+                "created_at" => '2024-01-01 05:12:03',
                 "created_by" => "imsystem.0001@gmail.com"
             ],
             [
@@ -129,7 +161,11 @@ class ItemSeeder extends Seeder
                 "supplier_id" => 2,
                 "cost_price" => 1700.0,
                 "selling_price" => 2000.0,
-                "created_at" => now(),
+                'quantity_stock' => 0,
+                'quantity_sold' => 0,
+                'minimum_stock' => 5,
+                'maximum_stock' => null,
+                "created_at" => '2024-01-01 05:12:03',
                 "created_by" => "imsystem.0001@gmail.com"
             ],
             [
@@ -142,7 +178,11 @@ class ItemSeeder extends Seeder
                 "supplier_id" => 2,
                 "cost_price" => 2340.0,
                 "selling_price" => 2800.0,
-                "created_at" => now(),
+                'quantity_stock' => 0,
+                'quantity_sold' => 0,
+                'minimum_stock' => 5,
+                'maximum_stock' => null,
+                "created_at" => '2024-01-01 05:12:03',
                 "created_by" => "imsystem.0001@gmail.com"
             ],
             [
@@ -155,7 +195,11 @@ class ItemSeeder extends Seeder
                 "supplier_id" => 2,
                 "cost_price" => 2405.0,
                 "selling_price" => 2700.0,
-                "created_at" => now(),
+                'quantity_stock' => 0,
+                'quantity_sold' => 0,
+                'minimum_stock' => 5,
+                'maximum_stock' => null,
+                "created_at" => '2024-01-01 05:12:03',
                 "created_by" => "imsystem.0001@gmail.com"
             ],
             [
@@ -168,7 +212,11 @@ class ItemSeeder extends Seeder
                 "supplier_id" => 2,
                 "cost_price" => 2560.0,
                 "selling_price" => 2900.0,
-                "created_at" => now(),
+                'quantity_stock' => 0,
+                'quantity_sold' => 0,
+                'minimum_stock' => 5,
+                'maximum_stock' => null,
+                "created_at" => '2024-01-01 05:12:03',
                 "created_by" => "imsystem.0001@gmail.com"
             ],
             [
@@ -181,7 +229,11 @@ class ItemSeeder extends Seeder
                 "supplier_id" => 2,
                 "cost_price" => 4122.0,
                 "selling_price" => 4500.0,
-                "created_at" => now(),
+                'quantity_stock' => 0,
+                'quantity_sold' => 0,
+                'minimum_stock' => 5,
+                'maximum_stock' => null,
+                "created_at" => '2024-01-01 05:12:03',
                 "created_by" => "imsystem.0001@gmail.com"
             ]
         ]);
