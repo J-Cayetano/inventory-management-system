@@ -56,7 +56,7 @@
                                 <div class="input-icon mx-2 d-inline-block text-center">
                                     <label class="form-check form-switch">
                                         <input class="form-check-input" type="checkbox" id="deactivate_switch">
-                                        <span class="form-check-label">Show Deactivated</span>
+                                        <span class="form-check-label">Show Deleted</span>
                                     </label>
                                 </div>
                             </div>
