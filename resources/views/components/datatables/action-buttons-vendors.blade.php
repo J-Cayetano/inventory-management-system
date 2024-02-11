@@ -1,4 +1,4 @@
-<span class="dropdown">
+<div class="dropdown">
     <button id="action-button" class="btn dropdown-toggle align-text-top {{ $row->deleted_at ? 'disabled' : '' }}"
         data-bs-boundary="viewport" data-bs-toggle="dropdown" aria-expanded="false">Actions</button>
     <div class="dropdown-menu dropdown-menu-end">
@@ -20,4 +20,4 @@
             </a>
         @endcan
     </div>
-</span>
+</div>
