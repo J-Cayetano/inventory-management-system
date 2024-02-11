@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Traits\Models\GlobalCasting;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Item extends Model
@@ -14,20 +15,36 @@ class Item extends Model
     protected $fillable = [
         'code',
         'name',
+        'description',
         'photo',
+        'vendor_id',
         'category_id',
+        'subcategory_id',
+        'brand_id',
         'unit_id',
-        'supplier_id',
-        'cost_price',
-        'selling_price',
         'created_by',
         'updated_by',
         'deleted_by',
     ];
 
+    /**
+     *
+     *  Relationship
+     *  return Illuminate\Database\Eloquent\Relations;
+     */
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function subcategory(): BelongsTo
+    {
+        return $this->belongsTo(Subcategory::class);
+    }
+
+    public function brand(): BelongsTo
+    {
+        return $this->belongsTo(Brand::class);
     }
 
     public function unit(): BelongsTo
@@ -35,8 +52,13 @@ class Item extends Model
         return $this->belongsTo(Unit::class);
     }
 
-    public function supplier(): BelongsTo
+    public function vendor(): BelongsTo
     {
-        return $this->belongsTo(Supplier::class);
+        return $this->belongsTo(Vendor::class);
+    }
+
+    public function itemVariations(): HasMany
+    {
+        return $this->hasMany(ItemVariation::class);
     }
 }

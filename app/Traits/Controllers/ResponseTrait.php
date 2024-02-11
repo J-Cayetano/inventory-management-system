@@ -8,7 +8,7 @@ trait ResponseTrait
     {
         return view($view, [
             "title" => $this->title,
-            "key" => $this->model->getTable()
+            "key" => $this->table
         ]);
     }
 
@@ -16,13 +16,25 @@ trait ResponseTrait
     {
         return view($view, [
             "title" => $this->title,
-            "key" => $this->model->getTable(),
+            "key" => $this->table,
             $key => $data
         ]);
     }
 
     public function redirectResponse(string $key, string $message)
     {
-        return redirect()->to(route($this->model->getTable()))->with($key, $message);
+        return redirect()->to(route($this->table))->with($key, $message);
+    }
+
+    public function jsonResponse(
+        string $status,
+        string $message,
+        mixed $data
+    ) {
+        return response()->json([
+            "status" => $status,
+            "message" => $message,
+            "data" => $data,
+        ]);
     }
 }

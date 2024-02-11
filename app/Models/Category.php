@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\Item;
 use App\Traits\Models\GlobalScope;
 use App\Traits\Models\GlobalCasting;
 use App\Traits\Models\GlobalMutators;
@@ -16,11 +15,21 @@ class Category extends Model
 
     protected $fillable = [
         'code',
-        'title',
+        'name',
         'created_by',
         'updated_by',
         'deleted_by',
     ];
+
+    /**
+     *
+     *  Relationship
+     *  return Illuminate\Database\Eloquent\Relations;
+     */
+    public function subcategories(): HasMany
+    {
+        return $this->hasMany(Subcategory::class);
+    }
 
     public function items(): HasMany
     {

@@ -18,7 +18,7 @@ class PermissionSeeder extends Seeder
 
         $models = [
             'users',
-            'suppliers',
+            'vendors',
             'categories',
             'units',
             'items',

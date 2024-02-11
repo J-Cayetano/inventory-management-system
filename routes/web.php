@@ -1,15 +1,15 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Users\UserController;
 use App\Http\Controllers\Auth\LogoutController;
+use App\Http\Controllers\Setups\UnitController;
+use App\Http\Controllers\Inventory\ItemController;
+use App\Http\Controllers\Setups\CategoryController;
+use App\Http\Controllers\Purchases\VendorController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Inventory\InventoryController;
-use App\Http\Controllers\Inventory\ItemController;
-use App\Http\Controllers\Purchases\SupplierController;
-use App\Http\Controllers\Setups\CategoryController;
-use App\Http\Controllers\Setups\UnitController;
-use App\Http\Controllers\Users\UserController;
-use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,6 +34,19 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/dashboard', 'index')->name('dashboard');
     });
 
+    // Purchase Management Module
+
+    Route::controller(VendorController::class)->group(function () {
+        Route::get('/vendors', 'index')->name('vendors');
+        Route::post('/vendors', 'datatable')->name('vendors.datatable');
+        Route::get('/vendors/create', 'create')->name('vendors.create');
+        Route::post('/vendors/store', 'store')->name('vendors.store');
+        Route::get('/vendors/{vendor}', 'edit')->name('vendors.edit');
+        Route::put('/vendors/{vendor}', 'update')->name('vendors.update');
+        Route::get('/vendors/{vendor}/delete', 'delete')->name('vendors.delete');
+        Route::delete('/vendors/{vendor}/destroy', 'destroy')->name('vendors.destroy');
+    });
+
     Route::controller(CategoryController::class)->group(function () {
         Route::get('/categories', 'index')->name('categories');
         Route::post('/categories', 'index')->name('categories.datatables');
@@ -56,23 +69,16 @@ Route::group(['middleware' => 'auth'], function () {
         Route::delete('/units/{unit}/destroy', 'destroy')->name('units.destroy');
     });
 
-    Route::controller(SupplierController::class)->group(function () {
-        Route::get('/suppliers', 'index')->name('suppliers');
-        Route::post('/suppliers', 'index')->name('suppliers.datatables');
-        Route::get('/suppliers/create', 'create')->name('suppliers.create');
-        Route::post('/suppliers/store', 'store')->name('suppliers.store');
-        Route::get('/suppliers/{supplier}', 'edit')->name('suppliers.edit');
-        Route::put('/suppliers/{supplier}', 'update')->name('suppliers.update');
-        Route::get('/suppliers/{supplier}/delete', 'delete')->name('suppliers.delete');
-        Route::delete('/suppliers/{supplier}/destroy', 'destroy')->name('suppliers.destroy');
-    });
+
 
     Route::controller(InventoryController::class)->group(function () {
-        Route::get('/inventory', 'index')->name('inventory');
+        Route::get('/inventory/gallery', 'gallery')->name('inventory.gallery');
+        Route::get('/inventory/table', 'table')->name('inventory.table');
     });
 
     Route::controller(ItemController::class)->group(function () {
         Route::get('/inventory/items/create', 'create')->name('items.create');
         Route::post('/inventory/items/store', 'store')->name('items.store');
+        Route::get('/inventory/items/{item}', 'show')->name('items.show');
     });
 });
