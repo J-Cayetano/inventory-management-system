@@ -16,7 +16,9 @@ return new class extends Migration
             $table->string('reference_no');
             $table->foreignId('purchase_order_id');
             $table->foreign('purchase_order_id')->references('id')->on('purchase_orders');
-            $table->foreignId('item_variation_id');
+            $table->foreignId('item_id');
+            $table->foreign('item_id')->references('id')->on('items');
+            $table->foreignId('item_variation_id')->nullable();
             $table->foreign('item_variation_id')->references('id')->on('item_variations');
             $table->integer('quantity');
             $table->integer('total_cost_amount');
