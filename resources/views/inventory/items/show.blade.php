@@ -40,7 +40,7 @@
 
         <div class="card-footer">
             <div class="footer-actions">
-                <a href="{{ route('inventory') }}" class="btn btn-outline-danger">Back</a>
+                <a href="{{ url()->previous() }}" class="btn btn-outline-danger">Back</a>
             </div>
         </div>
 

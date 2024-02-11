@@ -34,13 +34,13 @@
                             <div class="mt-3">
                                 <div class="row">
                                     <div class="col p-2">
-                                        <a href="{{ route('inventory') }}" class="btn btn-ghost-info w-100">
+                                        <a href="{{ route('inventory.gallery') }}" class="btn btn-ghost-info w-100">
                                             Inventory Management (Dashboard)
                                         </a>
                                     </div>
                                     <div class="col p-2">
-                                        <a href="{{ route('suppliers') }}" class="btn btn-ghost-info w-100">
-                                            Suppliers
+                                        <a href="{{ route('vendors') }}" class="btn btn-ghost-info w-100">
+                                            Vendors
                                         </a>
                                     </div>
                                     <div class="col p-2">
@@ -97,7 +97,7 @@
         <div class="h1">
             Numerical
         </div>
-        {{-- Suppliers --}}
+        {{-- Vendors --}}
         <div class="col-sm-6 col-lg-3">
             <div class="card card-sm">
                 <div class="card-body">

@@ -16,31 +16,31 @@ class CategorySeeder extends Seeder
         Category::insert([
             [
                 'code' => 'ELCTC-CMPNTS',
-                'title' => 'Electrical Components',
+                'name' => 'Electrical Components',
                 'created_at' => '2024-01-01 05:12:03',
                 'created_by' => 'imsystem.0001@gmail.com',
             ],
             [
                 'code' => 'ENGN-CMPNTS',
-                'title' => 'Engine Components',
+                'name' => 'Engine Components',
                 'created_at' => '2024-01-01 05:12:03',
                 'created_by' => 'imsystem.0001@gmail.com',
             ],
             [
                 'code' => 'EXH-SYS',
-                'title' => 'Exhaust Systems',
+                'name' => 'Exhaust Systems',
                 'created_at' => '2024-01-01 05:12:03',
                 'created_by' => 'imsystem.0001@gmail.com',
             ],
             [
                 'code' => 'FL-SYS',
-                'title' => 'Fuel Systems',
+                'name' => 'Fuel Systems',
                 'created_at' => '2024-01-01 05:12:03',
                 'created_by' => 'imsystem.0001@gmail.com',
             ],
             [
                 'code' => 'SPSN-BRK',
-                'title' => 'Suspension and Brake',
+                'name' => 'Suspension and Brake',
                 'created_at' => '2024-01-01 05:12:03',
                 'created_by' => 'imsystem.0001@gmail.com',
             ],

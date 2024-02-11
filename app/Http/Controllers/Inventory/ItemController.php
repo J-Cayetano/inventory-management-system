@@ -83,7 +83,7 @@ class ItemController extends Controller
      */
     public function show($item)
     {
-        $item = $this->model->find(decrypt($item));
+        $item = $this->model->find($item);
         $title = $this->title;
         return view('inventory.items.show', compact('item', 'title'));
     }

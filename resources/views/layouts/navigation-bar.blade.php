@@ -41,18 +41,48 @@
                         <div class="dropdown-menu">
                             <div class="dropdown-menu-columns">
                                 <div class="dropdown-menu-column">
-                                    <a class="dropdown-item" href="{{ route('categories') }}">
-                                        Item Categories
-                                    </a>
-                                    <a class="dropdown-item" href="{{ route('units') }}">
-                                        Item Units
-                                    </a>
+                                    <div class="dropend">
+                                        <a class="dropdown-item dropdown-toggle" href="#sidebar-authentication"
+                                            data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button"
+                                            aria-expanded="false">
+                                            Items
+                                        </a>
+                                        <div class="dropdown-menu">
+                                            <a href="./sign-in.html" class="dropdown-item">
+                                                Brands
+                                            </a>
+                                            <a href="./sign-in-link.html" class="dropdown-item">
+                                                Categories
+                                            </a>
+                                            <a href="./sign-in-illustration.html" class="dropdown-item">
+                                                Subcategories
+                                            </a>
+                                            <a href="./sign-in-cover.html" class="dropdown-item">
+                                                Units
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="dropend">
+                                        <a class="dropdown-item dropdown-toggle" href="#sidebar-authentication"
+                                            data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button"
+                                            aria-expanded="false">
+                                            Item Variations
+                                        </a>
+                                        <div class="dropdown-menu">
+                                            <a href="./sign-in.html" class="dropdown-item">
+                                                Colors
+                                            </a>
+                                            <a href="./sign-in-link.html" class="dropdown-item">
+                                                Sizes
+                                            </a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('inventory') }}">
+                        <a class="nav-link" href="{{ route('inventory.gallery') }}">
                             <span
                                 class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/package -->
                                 <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24"
@@ -88,14 +118,14 @@
                                 </svg>
                             </span>
                             <span class="nav-link-title">
-                                Purchases Management
+                                Purchase Management
                             </span>
                         </a>
                         <div class="dropdown-menu">
                             <div class="dropdown-menu-columns">
                                 <div class="dropdown-menu-column">
-                                    <a class="dropdown-item" href="{{ route('suppliers') }}">
-                                        Suppliers
+                                    <a class="dropdown-item" href="{{ route('vendors') }}">
+                                        Vendors
                                     </a>
                                     <a class="dropdown-item" href="{{ route('units') }}">
                                         Purchase Orders

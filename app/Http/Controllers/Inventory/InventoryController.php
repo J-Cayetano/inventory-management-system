@@ -23,9 +23,20 @@ class InventoryController extends Controller
         $this->title = "Inventory Management";
     }
 
-    public function index(Request $request)
+    public function gallery(Request $request)
     {
-        return view('inventory.index', [
+        return view('inventory.index-gallery', [
+            'title' => $this->title,
+            'key' => 'items',
+            'categories' => $this->category->all(),
+            'suppliers' => $this->supplier->all(),
+            'items' => $this->item->paginate(10),
+        ]);
+    }
+
+    public function table(Request $request)
+    {
+        return view('inventory.index-table', [
             'title' => $this->title,
             'key' => 'items',
             'categories' => $this->category->all(),

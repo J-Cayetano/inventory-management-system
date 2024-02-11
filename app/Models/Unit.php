@@ -15,12 +15,17 @@ class Unit extends Model
 
     protected $fillable = [
         'code',
-        'title',
+        'name',
         'created_by',
         'updated_by',
         'deleted_by',
     ];
 
+    /**
+     *
+     *  Relationship
+     *  return Illuminate\Database\Eloquent\Relations;
+     */
     public function items(): HasMany
     {
         return $this->hasMany(Item::class);
