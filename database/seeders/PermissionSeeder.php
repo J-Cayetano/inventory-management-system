@@ -22,6 +22,7 @@ class PermissionSeeder extends Seeder
             'categories',
             'units',
             'items',
+            'purchase_orders',
         ];
 
         $methods = [

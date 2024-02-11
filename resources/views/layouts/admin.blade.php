@@ -16,6 +16,7 @@
     <title>@yield('title') | {{ config('app.name') }} Inventory Management System</title>
     <link rel="shortcut icon" href="{{ asset('static/logo.png') }}" />
     <link href="{{ asset('dist/css/tabler.min.css') }}" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ asset('dist/libs/datatables/datatables.min.css') }}">
     @yield('styles')
     <style>
         @import url('https://rsms.me/inter/inter.css');
