@@ -8,12 +8,12 @@
             <div class="card">
                 {{-- Title --}}
                 <div class="card-header">
-                    <h3 class="card-title">Edit Supplier - {{ $supplier->name }}</h3>
+                    <h3 class="card-title">Update Vendor: {{ $vendor->name }}</h3>
                 </div>
                 {{-- Body --}}
                 <div class="card-body">
-                    <form method="POST" action="{{ route($key . '.update', $supplier->id) }}" enctype="multipart/form-data"
-                        id="create-form">
+                    <form method="POST" action="{{ route($key . '.update', $vendor->id) }}" enctype="multipart/form-data"
+                        id="edit-form">
                         @csrf
                         @method('PUT')
                         <div class="row g-2">
@@ -23,7 +23,7 @@
                                         for="code">{{ __('cruds.categories.fields.code') }}</label>
                                     <input class="form-control {{ $errors->has('code') ? 'is-invalid' : '' }}"
                                         type="text" name="code" id="code"
-                                        value="{{ old('code', $supplier->code) }}" required>
+                                        value="{{ old('code', $vendor->code) }}" required>
                                     @error('code')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
@@ -42,12 +42,12 @@
                                     <label class="required form-label" for="name">Name</label>
                                     <input class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}"
                                         type="text" name="name" id="name"
-                                        value="{{ old('name', $supplier->name) }}" required>
+                                        value="{{ old('name', $vendor->name) }}" required>
                                     @error('name')
                                         <span class="text-danger">{{ $errors->first('name') }}</span>
                                     @enderror
                                     <span
-                                        class="help-block text-info fs-5">{{ __('cruds.suppliers.fields.name_helper') }}</span>
+                                        class="help-block text-info fs-5">{{ __('cruds.vendors.fields.name_helper') }}</span>
                                 </div>
                             </div>
                         </div>
@@ -57,12 +57,12 @@
                                     <label class="required form-label" for="city">City</label>
                                     <input class="form-control word-case {{ $errors->has('city') ? 'is-invalid' : '' }}"
                                         type="text" name="city" id="city"
-                                        value="{{ old('city', $supplier->city) }}" required>
+                                        value="{{ old('city', $vendor->city) }}" required>
                                     @error('city')
                                         <span class="text-danger">{{ $errors->first('city') }}</span>
                                     @enderror
                                     <span
-                                        class="help-block text-info fs-5">{{ __('cruds.suppliers.fields.city_helper') }}</span>
+                                        class="help-block text-info fs-5">{{ __('cruds.vendors.fields.city_helper') }}</span>
                                 </div>
                             </div>
                             <div class="col-sm-8 p-5">
@@ -70,12 +70,12 @@
                                     <label class="required form-label" for="address">Address</label>
                                     <input class="form-control word-case {{ $errors->has('address') ? 'is-invalid' : '' }}"
                                         type="text" name="address" id="address"
-                                        value="{{ old('address', $supplier->address) }}" required>
+                                        value="{{ old('address', $vendor->address) }}" required>
                                     @error('address')
                                         <span class="text-danger">{{ $errors->first('address') }}</span>
                                     @enderror
                                     <span
-                                        class="help-block text-info fs-5">{{ __('cruds.suppliers.fields.address_helper') }}</span>
+                                        class="help-block text-info fs-5">{{ __('cruds.vendors.fields.address_helper') }}</span>
                                 </div>
                             </div>
                         </div>
@@ -85,12 +85,12 @@
                                     <label class="required form-label" for="email">Email</label>
                                     <input class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}"
                                         type="email" name="email" placeholder="your@email.com" id="email"
-                                        value="{{ old('email', $supplier->email) }}" required>
+                                        value="{{ old('email', $vendor->email) }}" required>
                                     @error('email')
                                         <span class="text-danger">{{ $errors->first('email') }}</span>
                                     @enderror
                                     <span
-                                        class="help-block text-info fs-5">{{ __('cruds.suppliers.fields.email_helper') }}</span>
+                                        class="help-block text-info fs-5">{{ __('cruds.vendors.fields.email_helper') }}</span>
                                 </div>
                             </div>
                             <div class="col-sm-4 p-5">
@@ -98,12 +98,12 @@
                                     <label class="required form-label" for="contact">Contact No.</label>
                                     <input class="form-control {{ $errors->has('contact') ? 'is-invalid' : '' }}"
                                         type="phone" name="contact" placeholder="+639..." id="contact"
-                                        value="{{ old('contact', $supplier->contact) }}" required>
+                                        value="{{ old('contact', $vendor->contact) }}" required>
                                     @error('contact')
                                         <span class="text-danger">{{ $errors->first('contact') }}</span>
                                     @enderror
                                     <span
-                                        class="help-block text-info fs-5">{{ __('cruds.suppliers.fields.contact_helper') }}</span>
+                                        class="help-block text-info fs-5">{{ __('cruds.vendors.fields.contact_helper') }}</span>
                                 </div>
                             </div>
                         </div>
@@ -194,7 +194,7 @@
             $('#submit-button').on('click', function() {
                 var valid = true;
 
-                $("#create-form :input[required]").each(function() {
+                $("#edit-form :input[required]").each(function() {
                     if (!$(this).val()) {
                         valid = false;
                         $(this).addClass("is-invalid");
