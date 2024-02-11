@@ -10,6 +10,7 @@ use App\Http\Controllers\Setups\CategoryController;
 use App\Http\Controllers\Purchases\VendorController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Inventory\InventoryController;
+use App\Http\Controllers\Purchases\PurchaseOrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,6 +46,17 @@ Route::group(['middleware' => 'auth'], function () {
         Route::put('/vendors/{vendor}', 'update')->name('vendors.update');
         Route::get('/vendors/{vendor}/delete', 'delete')->name('vendors.delete');
         Route::delete('/vendors/{vendor}/destroy', 'destroy')->name('vendors.destroy');
+    });
+
+    Route::controller(PurchaseOrderController::class)->group(function () {
+        Route::get('/purchase_orders', 'index')->name('purchase_orders');
+        Route::post('/purchase_orders', 'datatable')->name('purchase_orders.datatable');
+        Route::get('/purchase_orders/create', 'create')->name('purchase_orders.create');
+        Route::post('/purchase_orders/store', 'store')->name('purchase_orders.store');
+        Route::get('/purchase_orders/{vendor}', 'edit')->name('purchase_orders.edit');
+        Route::put('/purchase_orders/{vendor}', 'update')->name('purchase_orders.update');
+        Route::get('/purchase_orders/{vendor}/delete', 'delete')->name('purchase_orders.delete');
+        Route::delete('/purchase_orders/{vendor}/destroy', 'destroy')->name('purchase_orders.destroy');
     });
 
     Route::controller(CategoryController::class)->group(function () {
