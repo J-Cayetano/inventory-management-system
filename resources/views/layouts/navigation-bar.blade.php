@@ -127,7 +127,7 @@
                                     <a class="dropdown-item" href="{{ route('vendors') }}">
                                         Vendors
                                     </a>
-                                    <a class="dropdown-item" href="{{ route('units') }}">
+                                    <a class="dropdown-item" href="{{ route('purchase_orders') }}">
                                         Purchase Orders
                                     </a>
                                 </div>
