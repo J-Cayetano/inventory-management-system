@@ -87,6 +87,7 @@
     </footer>
     <script src="{{ asset('dist/js/tabler.min.js') }}" defer></script>
     <script src="{{ asset('dist/libs/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('dist/libs/datatables/datatables.min.js') }}"></script>
     @yield('scripts')
 </body>
 
