@@ -5,7 +5,6 @@ namespace App\Models;
 use App\Traits\Models\GlobalCasting;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Vendor extends Model
@@ -15,7 +14,6 @@ class Vendor extends Model
     protected $fillable = [
         'code',
         'name',
-        'province',
         'city',
         'address',
         'email',

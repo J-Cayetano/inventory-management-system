@@ -20,7 +20,9 @@ class PermissionSeeder extends Seeder
             'users',
             'vendors',
             'categories',
+            'subcategories',
             'units',
+            'brands',
             'items',
             'purchase_orders',
         ];

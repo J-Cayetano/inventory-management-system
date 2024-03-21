@@ -16,12 +16,10 @@ class Item extends Model
         'code',
         'name',
         'description',
-        'photo',
         'vendor_id',
         'category_id',
         'subcategory_id',
         'brand_id',
-        'unit_id',
         'created_by',
         'updated_by',
         'deleted_by',
@@ -45,11 +43,6 @@ class Item extends Model
     public function brand(): BelongsTo
     {
         return $this->belongsTo(Brand::class);
-    }
-
-    public function unit(): BelongsTo
-    {
-        return $this->belongsTo(Unit::class);
     }
 
     public function vendor(): BelongsTo

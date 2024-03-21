@@ -53,7 +53,8 @@ class VendorController extends Controller
                     if ($request->deactivate_switch === "true") {
                         return $query->withTrashed();
                     }
-                });
+                })
+                ->withCount('items');
 
             $datatable = DataTables::of($query);
 
@@ -72,11 +73,12 @@ class VendorController extends Controller
             });
 
             $datatable->addColumn('actions', function ($row) {
-                return view('components.datatables.action-buttons', [
+                return view('components.datatables.action-buttons-vendors', [
                     'row' => $row,
                     'key' => $this->table,
                     'editGate' => $this->table . '_update',
                     'deleteGate' => $this->table . '_delete',
+                    'showGate' => $this->table . '_access'
                 ]);
             });
 
@@ -119,9 +121,11 @@ class VendorController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Vendor $vendor)
+    public function show($vendor)
     {
-        //
+        $vendor = $this->model->find(decrypt($vendor));
+
+        return $this->viewDataResponse('purchases.vendors.show', 'vendor', $vendor);
     }
 
     /**

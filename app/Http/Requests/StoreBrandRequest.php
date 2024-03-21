@@ -2,16 +2,26 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Brand;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreBrandRequest extends FormRequest
 {
+    public $table;
+
+    public function __construct(
+        public Brand $model,
+    ) {
+        $this->table = $this->model->getTable();
+    }
+
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return false;
+        return Gate::allows($this->table . '_store');
     }
 
     /**
@@ -22,7 +32,8 @@ class StoreBrandRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'code' => ['required', 'regex:/^[a-zA-Z0-9\-]+$/', 'unique:' . $this->table . ',code,NULL,id,deleted_at,NULL'],
+            'name' => ['required', 'string', 'unique:' . $this->table . ',name,NULL,id,deleted_at,NULL'],
         ];
     }
 }

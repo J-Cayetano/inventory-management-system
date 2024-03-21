@@ -6,85 +6,80 @@ use Exception;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Gate;
 use Yajra\DataTables\Facades\DataTables;
 use App\Traits\Controllers\ResponseTrait;
 use App\Http\Requests\StoreCategoryRequest;
-use App\Http\Requests\UpdateCategoryRequest;
 
 class CategoryController extends Controller
 {
     use ResponseTrait;
 
-    public $title;
+    public string $table;
+    public string $title;
 
     public function __construct(
         public Category $model
     ) {
-        $this->title = "Item Category Management";
+        $this->title = "Categories Management";
+        $this->table = $this->model->getTable();
     }
+
+    #-------------------------------------------------------#
+    #                      Web Functions                    #
+    #-------------------------------------------------------#
 
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index()
     {
-        abort_if(Gate::denies($this->model->getTable() . '_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies($this->table . '_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        return $this->viewResponse('setups.items.' . $this->table . '.index');
+    }
+
+    /**
+     * Send a datatable response.
+     */
+    public function datatable(Request $request)
+    {
+        abort_if(Gate::denies($this->table . '_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
 
-            $query = $this->model->when($request->has('deactivate_switch'), function ($query) use ($request) {
-                if ($request->deactivate_switch === "true") {
-                    return $query->withTrashed();
-                }
-            });
+            $query = $this->model
+                ->when($request->has('deactivate_switch'), function ($query) use ($request) {
+                    if ($request->deactivate_switch === "true") {
+                        return $query->withTrashed();
+                    }
+                });
 
             $datatable = DataTables::of($query);
 
-            $datatable->addColumn('actions', function ($row) {
-                $key = $this->model->getTable();
-                $editGate      = $this->model->getTable() . '_update';
-                $deleteGate    = $this->model->getTable() . '_delete';
-
-                return view('components.datatables.action-buttons', compact(
-                    'editGate',
-                    'deleteGate',
-                    'key',
-                    'row'
-                ));
-            });
-
-            $datatable->editColumn('code', function ($row) {
-                return $row->code ? $row->code : '';
-            });
-
-            $datatable->editColumn('title', function ($row) {
-                return $row->title ? $row->title : '';
-            });
-
             $datatable->addColumn('last_action_at', function ($row) {
-                if ($row->deleted_by) {
-                    return $row->deleted_at;
-                } else if ($row->updated_by) {
-                    return $row->updated_at;
-                } else {
-                    return $row->created_at;
-                }
+                return $row->delete_at ?? $row->updated_at ?? $row->created_at;
             });
 
             $datatable->addColumn('last_action_by', function ($row) {
-                if ($row->deleted_by) {
-                    return $row->deleted_by;
-                } else if ($row->updated_by) {
-                    return $row->updated_by;
-                } else {
-                    return $row->created_by;
-                }
+                return $row->delete_by ?? $row->updated_by ?? $row->created_by;
             });
 
             $datatable->addColumn('status', function ($row) {
-                return ($row->deleted_by === null) ? "<span value='true' class='badge bg-green text-green-fg'>Active</span>" : "<span value='false' class='badge bg-red text-red-fg'>Deactivated</span>";
+                return ($row->deleted_by === null)
+                    ? "<span value='true' class='badge bg-green text-green-fg'>Active</span>"
+                    : "<span value='false' class='badge bg-red text-red-fg'>Deleted</span>";
+            });
+
+            $datatable->addColumn('actions', function ($row) {
+                return view('components.datatables.action-buttons', [
+                    'row' => $row,
+                    'key' => $this->table,
+                    'editGate' => $this->table . '_update',
+                    'deleteGate' => $this->table . '_delete',
+                ]);
             });
 
             $datatable->rawColumns(['actions', 'status']);
@@ -92,7 +87,7 @@ class CategoryController extends Controller
             return $datatable->make(true);
         }
 
-        return $this->viewResponse('setups.categories.index');
+        abort(403, "Unauthorized way of access.");
     }
 
     /**
@@ -100,9 +95,9 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        abort_if(Gate::denies($this->model->getTable() . '_store'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies($this->table . '_store'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return $this->viewResponse('setups.categories.create');
+        return $this->viewResponse('setups.items.' . $this->table . '.create');
     }
 
     /**
@@ -110,16 +105,16 @@ class CategoryController extends Controller
      */
     public function store(StoreCategoryRequest $request)
     {
-        abort_if(Gate::denies($this->model->getTable() . '_store'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies($this->table . '_store'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         try {
             $request->merge([
                 "created_by" => $request->user()->email
             ]);
             $this->model->create($request->all());
-            return $this->redirectResponse('success', "Category $request->title created successfully!");
+            return $this->redirectResponse('success', "Category $request->name created successfully!");
         } catch (Exception $e) {
-            return $this->redirectResponse('error', "Category created unsuccessfully!");
+            return $this->redirectResponse('error', "Category create unsuccessfully! Error: " . $e->getMessage());
         }
     }
 
@@ -136,17 +131,22 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        abort_if(Gate::denies($this->model->getTable() . '_update'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies($this->table . '_update'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return $this->viewDataResponse('setups.categories.edit', 'category', $category);
+        return $this->viewDataResponse('setups.items.' . $this->table . '.edit', 'category', $category);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateCategoryRequest $request, Category $category)
+    public function update(Request $request, Category $category)
     {
-        abort_if(Gate::denies($this->model->getTable() . '_update'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies($this->table . '_update'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $request->validate([
+            'code' => ['required', 'regex:/^[a-zA-Z0-9\-]+$/', Rule::unique($this->table)->ignore($category->id)->whereNull('deleted_at')],
+            'name' => ['required', 'string', Rule::unique($this->table)->ignore($category->id)->whereNull('deleted_at')],
+        ]);
 
         try {
             $request->merge([
@@ -154,9 +154,9 @@ class CategoryController extends Controller
             ]);
             $category->update($request->all());
             $category->save();
-            return $this->redirectResponse('success', "Category $request->title updated successfully!");
-        } catch (\Throwable $th) {
-            return $this->redirectResponse('error', "Category updated unsuccessfully!");
+            return $this->redirectResponse('success', "Category $category->name updated successfully!");
+        } catch (Exception $e) {
+            return $this->redirectResponse('error', "Category update unsuccessfully! Error: " . $e->getMessage());
         }
     }
 
@@ -165,9 +165,11 @@ class CategoryController extends Controller
      */
     public function delete(Category $category)
     {
-        abort_if(Gate::denies($this->model->getTable() . '_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies($this->table . '_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return $this->viewDataResponse('setups.categories.delete', 'category', $category);
+        return ($category->subcategories->count() === 0)
+            ? $this->viewDataResponse('setups.items.' . $this->table . '.delete', 'category', $category)
+            : $this->redirectResponse('error', $category->name . " has an active subcategory! Cannot be deleted as of this moment.");
     }
 
     /**
@@ -175,17 +177,16 @@ class CategoryController extends Controller
      */
     public function destroy(Request $request, Category $category)
     {
-        abort_if(Gate::denies($this->model->getTable() . '_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies($this->table . '_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         try {
             $category->update([
                 'deleted_by' => $request->user()->email
             ]);
             $category->delete();
-            $category->save();
-            return $this->redirectResponse('success', "Category $category->title deleted successfully!");
+            return $this->redirectResponse('success', "Category deleted successfully!");
         } catch (Exception $e) {
-            return $this->redirectResponse('error', "Category updated unsuccessfully!");
+            return $this->redirectResponse('error', "Category delete unsuccessfully! Error: " . $e->getMessage());
         }
     }
 }

@@ -13,9 +13,13 @@ class ItemVariation extends Model
     use SoftDeletes, GlobalCasting;
 
     protected $fillable = [
+        'code',
+        'description',
+        'photo',
         'item_id',
         'color_id',
         'size_id',
+        'unit_id',
         'cost_amount',
         'selling_amount',
         'quantity_stock',
@@ -40,6 +44,11 @@ class ItemVariation extends Model
     public function size(): BelongsTo
     {
         return $this->belongsTo(Size::class);
+    }
+
+    public function unit(): BelongsTo
+    {
+        return $this->belongsTo(Unit::class);
     }
 
     public function item(): BelongsTo

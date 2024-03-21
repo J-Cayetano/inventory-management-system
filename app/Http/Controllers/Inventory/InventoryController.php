@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Inventory;
 
+use App\Models\Item;
+use App\Models\Vendor;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Category;
-use App\Models\Item;
-use App\Models\Supplier;
 use App\Traits\Controllers\ResponseTrait;
 
 class InventoryController extends Controller
@@ -17,7 +17,7 @@ class InventoryController extends Controller
 
     public function __construct(
         public Category $category,
-        public Supplier $supplier,
+        public Vendor $vendor,
         public Item $item,
     ) {
         $this->title = "Inventory Management";
@@ -29,7 +29,7 @@ class InventoryController extends Controller
             'title' => $this->title,
             'key' => 'items',
             'categories' => $this->category->all(),
-            'suppliers' => $this->supplier->all(),
+            'suppliers' => $this->vendor->all(),
             'items' => $this->item->paginate(10),
         ]);
     }
@@ -40,7 +40,7 @@ class InventoryController extends Controller
             'title' => $this->title,
             'key' => 'items',
             'categories' => $this->category->all(),
-            'suppliers' => $this->supplier->all(),
+            'suppliers' => $this->vendor->all(),
             'items' => $this->item->paginate(10),
         ]);
     }

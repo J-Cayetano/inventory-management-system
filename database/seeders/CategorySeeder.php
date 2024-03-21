@@ -15,13 +15,13 @@ class CategorySeeder extends Seeder
     {
         Category::insert([
             [
-                'code' => 'ELCTC-CMPNTS',
+                'code' => 'ELEC-COMP',
                 'name' => 'Electrical Components',
                 'created_at' => '2024-01-01 05:12:03',
                 'created_by' => 'imsystem.0001@gmail.com',
             ],
             [
-                'code' => 'ENGN-CMPNTS',
+                'code' => 'ENG-COMP',
                 'name' => 'Engine Components',
                 'created_at' => '2024-01-01 05:12:03',
                 'created_by' => 'imsystem.0001@gmail.com',
@@ -39,7 +39,7 @@ class CategorySeeder extends Seeder
                 'created_by' => 'imsystem.0001@gmail.com',
             ],
             [
-                'code' => 'SPSN-BRK',
+                'code' => 'SUSP-BRK',
                 'name' => 'Suspension and Brake',
                 'created_at' => '2024-01-01 05:12:03',
                 'created_by' => 'imsystem.0001@gmail.com',

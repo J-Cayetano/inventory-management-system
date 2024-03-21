@@ -16,13 +16,19 @@ class UnitSeeder extends Seeder
         Unit::insert([
             [
                 'code' => 'PC',
-                'title' => 'Piece',
+                'name' => 'Piece',
                 'created_at' => '2024-01-01 05:12:03',
                 'created_by' => 'imsystem.0001@gmail.com',
             ],
             [
                 'code' => 'PCK',
-                'title' => 'Pack',
+                'name' => 'Pack',
+                'created_at' => '2024-01-01 05:12:03',
+                'created_by' => 'imsystem.0001@gmail.com',
+            ],
+            [
+                'code' => 'SET',
+                'name' => 'Set',
                 'created_at' => '2024-01-01 05:12:03',
                 'created_by' => 'imsystem.0001@gmail.com',
             ],

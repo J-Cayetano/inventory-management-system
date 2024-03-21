@@ -6,10 +6,10 @@ use Exception;
 use App\Models\Unit;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\StoreUnitRequest;
-use App\Http\Requests\UpdateUnitRequest;
 use Yajra\DataTables\Facades\DataTables;
 use App\Traits\Controllers\ResponseTrait;
 
@@ -17,74 +17,68 @@ class UnitController extends Controller
 {
     use ResponseTrait;
 
-    public $title;
+    public $title, $table;
 
     public function __construct(
         public Unit $model
     ) {
-        $this->title = "Item Unit Management";
+        $this->title = "Unit Management";
+        $this->table = $this->model->getTable();
     }
+
+    #-------------------------------------------------------#
+    #                      Web Functions                    #
+    #-------------------------------------------------------#
 
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index()
     {
-        abort_if(Gate::denies($this->model->getTable() . '_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies($this->table . '_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        return $this->viewResponse('setups.items.' . $this->table . '.index');
+    }
+
+    /**
+     * Send a datatable response.
+     */
+    public function datatable(Request $request)
+    {
+        abort_if(Gate::denies($this->table . '_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         if ($request->ajax()) {
 
-            $query = $this->model->when($request->has('deactivate_switch'), function ($query) use ($request) {
-                if ($request->deactivate_switch === "true") {
-                    return $query->withTrashed();
-                }
-            });
+            $query = $this->model
+                ->when($request->has('deactivate_switch'), function ($query) use ($request) {
+                    if ($request->deactivate_switch === "true") {
+                        return $query->withTrashed();
+                    }
+                });
 
             $datatable = DataTables::of($query);
 
-            $datatable->addColumn('actions', function ($row) {
-                $key = $this->model->getTable();
-                $editGate      = $this->model->getTable() . '_update';
-                $deleteGate    = $this->model->getTable() . '_delete';
-
-                return view('components.datatables.action-buttons', compact(
-                    'editGate',
-                    'deleteGate',
-                    'key',
-                    'row'
-                ));
-            });
-
-            $datatable->editColumn('code', function ($row) {
-                return $row->code ? $row->code : '';
-            });
-
-            $datatable->editColumn('title', function ($row) {
-                return $row->title ? $row->title : '';
-            });
-
             $datatable->addColumn('last_action_at', function ($row) {
-                if ($row->deleted_by) {
-                    return $row->deleted_at;
-                } else if ($row->updated_by) {
-                    return $row->updated_at;
-                } else {
-                    return $row->created_at;
-                }
+                return $row->delete_at ?? $row->updated_at ?? $row->created_at;
             });
 
             $datatable->addColumn('last_action_by', function ($row) {
-                if ($row->deleted_by) {
-                    return $row->deleted_by;
-                } else if ($row->updated_by) {
-                    return $row->updated_by;
-                } else {
-                    return $row->created_by;
-                }
+                return $row->delete_by ?? $row->updated_by ?? $row->created_by;
             });
 
             $datatable->addColumn('status', function ($row) {
-                return ($row->deleted_by === null) ? "<span value='true' class='badge bg-green text-green-fg'>Active</span>" : "<span value='false' class='badge bg-red text-red-fg'>Deactivated</span>";
+                return ($row->deleted_by === null)
+                    ? "<span value='true' class='badge bg-green text-green-fg'>Active</span>"
+                    : "<span value='false' class='badge bg-red text-red-fg'>Deleted</span>";
+            });
+
+            $datatable->addColumn('actions', function ($row) {
+                return view('components.datatables.action-buttons', [
+                    'row' => $row,
+                    'key' => $this->table,
+                    'editGate' => $this->table . '_update',
+                    'deleteGate' => $this->table . '_delete',
+                ]);
             });
 
             $datatable->rawColumns(['actions', 'status']);
@@ -92,7 +86,7 @@ class UnitController extends Controller
             return $datatable->make(true);
         }
 
-        return $this->viewResponse('setups.units.index');
+        abort(403, "Unauthorized way of access.");
     }
 
     /**
@@ -100,9 +94,9 @@ class UnitController extends Controller
      */
     public function create()
     {
-        abort_if(Gate::denies($this->model->getTable() . '_store'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies($this->table . '_store'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return $this->viewResponse('setups.units.create');
+        return $this->viewResponse('setups.items.' . $this->table . '.create');
     }
 
     /**
@@ -110,16 +104,16 @@ class UnitController extends Controller
      */
     public function store(StoreUnitRequest $request)
     {
-        abort_if(Gate::denies($this->model->getTable() . '_store'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies($this->table . '_store'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         try {
             $request->merge([
                 "created_by" => $request->user()->email
             ]);
             $this->model->create($request->all());
-            return $this->redirectResponse('success', "Unit $request->title created successfully!");
+            return $this->redirectResponse('success', "Unit $request->name created successfully!");
         } catch (Exception $e) {
-            return $this->redirectResponse('error', $e->getMessage());
+            return $this->redirectResponse('error', "Unit create unsuccessfully! Error: " . $e->getMessage());
         }
     }
 
@@ -136,17 +130,22 @@ class UnitController extends Controller
      */
     public function edit(Unit $unit)
     {
-        abort_if(Gate::denies($this->model->getTable() . '_update'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies($this->table . '_update'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return $this->viewDataResponse('setups.units.edit', 'unit', $unit);
+        return $this->viewDataResponse('setups.items.' . $this->table . '.edit', 'unit', $unit);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateUnitRequest $request, Unit $unit)
+    public function update(Request $request, Unit $unit)
     {
-        abort_if(Gate::denies($this->model->getTable() . '_update'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies($this->table . '_update'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        $request->validate([
+            'code' => ['required', 'regex:/^[a-zA-Z0-9\-]+$/', Rule::unique($this->table)->ignore($unit->id)->whereNull('deleted_at')],
+            'name' => ['required', 'string', Rule::unique($this->table)->ignore($unit->id)->whereNull('deleted_at')],
+        ]);
 
         try {
             $request->merge([
@@ -154,9 +153,9 @@ class UnitController extends Controller
             ]);
             $unit->update($request->all());
             $unit->save();
-            return $this->redirectResponse('success', "Unit $request->title updated successfully!");
+            return $this->redirectResponse('success', "Unit $unit->name updated successfully!");
         } catch (Exception $e) {
-            return $this->redirectResponse('error', $e->getMessage());
+            return $this->redirectResponse('error', "Unit update unsuccessfully! Error: " . $e->getMessage());
         }
     }
 
@@ -165,9 +164,9 @@ class UnitController extends Controller
      */
     public function delete(Unit $unit)
     {
-        abort_if(Gate::denies($this->model->getTable() . '_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies($this->table . '_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        return $this->viewDataResponse('setups.units.delete', 'unit', $unit);
+        return $this->viewDataResponse('setups.items.' . $this->table . '.delete', 'unit', $unit);
     }
 
     /**
@@ -175,17 +174,17 @@ class UnitController extends Controller
      */
     public function destroy(Request $request, Unit $unit)
     {
-        abort_if(Gate::denies($this->model->getTable() . '_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+        abort_if(Gate::denies($this->table . '_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
         try {
             $unit->update([
                 'deleted_by' => $request->user()->email
             ]);
             $unit->delete();
-            $unit->save();
-            return $this->redirectResponse('success', "Unit $unit->title deleted successfully!");
+            return $this->redirectResponse('success', "Unit deleted successfully!");
         } catch (Exception $e) {
-            return $this->redirectResponse('error', $e->getMessage());
+            return $this->redirectResponse('error', "Unit delete unsuccessfully! Error: " . $e->getMessage());
         }
     }
 }
+

@@ -21,7 +21,7 @@ class PurchaseOrderController extends Controller
     public function __construct(
         public PurchaseOrder $model
     ) {
-        $this->title = "Purchase Orders Management";
+        $this->title = "Purchase Order Management";
         $this->table = $this->model->getTable();
     }
 
@@ -93,7 +93,9 @@ class PurchaseOrderController extends Controller
      */
     public function create()
     {
-        //
+        abort_if(Gate::denies($this->table . '_store'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+        return $this->viewResponse('purchases.purchase_orders.create');
     }
 
     /**

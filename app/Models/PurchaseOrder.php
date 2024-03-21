@@ -24,9 +24,9 @@ class PurchaseOrder extends Model
     ];
 
     public $status = [
-        'pending',
-        'in-transit',
-        'delivered',
+        'pending' => 'orange',
+        'processing' => 'blue',
+        'received' => 'green',
     ];
 
     /**

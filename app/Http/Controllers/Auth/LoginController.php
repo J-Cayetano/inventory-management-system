@@ -10,10 +10,6 @@ class LoginController extends Controller
 {
     public function index()
     {
-        if (Auth::check()) {
-            return redirect()->to(route('dashboard'));
-        }
-
         return view('auth.login');
     }
 
@@ -23,14 +19,12 @@ class LoginController extends Controller
      */
     public function authenticate(LoginRequest $request)
     {
-        // Checks if Email and Password are valied and if the method of the request is POST
         if (Auth::attempt($request->validated()) && request()->isMethod('POST')) {
-            // Will regenerate session (Browser session nung naglogin, masstore sa Database Sessions table)
             $request->session()->regenerate();
             return redirect()->to(route('dashboard'));
         }
 
-        return back()->withErrors([
+        return back()->with([
             'error' => 'The provided credentials do not match our records.',
         ]);
     }

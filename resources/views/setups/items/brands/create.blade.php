@@ -1,0 +1,149 @@
+@extends('layouts.admin')
+
+@section('title', $title)
+
+@section('contents')
+    <div class="row row-cards">
+        <div class="col-12">
+            <div class="card">
+                {{-- Title --}}
+                <div class="card-header">
+                    <h3 class="card-title">Add New {{ substr(ucwords($key), 0, -1) }}</h3>
+                </div>
+                {{-- Body --}}
+                <div class="card-body">
+                    <form method="POST" action="{{ route($key . '.store') }}" enctype="multipart/form-data" id="create-form">
+                        @csrf
+                        @method('POST')
+                        <div class="row g-2">
+                            <div class="col-sm-3 p-5">
+                                <div class="form-group">
+                                    <label class="required form-label"
+                                        for="code">{{ __('cruds.' . $key . '.fields.code') }}</label>
+                                    <input class="form-control {{ $errors->has('code') ? 'is-invalid' : '' }}"
+                                        type="text" name="code" id="code" value="{{ old('code', '') }}" required>
+                                    @error('code')
+                                        <span class="invalid-feedback">{{ $message }}</span>
+                                    @enderror
+
+                                    <label class="form-check form-switch mt-2 help-block fs-5">
+                                        <input class="form-check-input" id="suggested-code" type="checkbox">
+                                        <span class="form-check-label">Use Suggested Code</span>
+                                    </label>
+                                    <span
+                                        class="help-block text-info fs-5">{{ __('cruds.' . $key . '.fields.code_helper') }}</span>
+                                </div>
+
+                            </div>
+                            <div class="col-sm-9 p-5">
+                                <div class="form-group">
+                                    <label class="required form-label"
+                                        for="name">{{ __('cruds.' . $key . '.fields.name') }}</label>
+                                    <input class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}"
+                                        type="text" name="name" id="name" value="{{ old('name', '') }}" required>
+                                    @error('name')
+                                        <span class="invalid-feedback">{{ $errors->first('name') }}</span>
+                                    @enderror
+                                    <span
+                                        class="help-block text-info fs-5">{{ __('cruds.' . $key . '.fields.name_helper') }}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="text-end">
+                            <a href="{{ route($key . '.index') }}" class="btn btn-secondary">
+                                {{ trans('global.cancel') }}
+                            </a>
+                            <button class="btn btn-primary" id="submit-button" type="submit">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-device-floppy"
+                                    width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                                    fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                    <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                    <path d="M6 4h10l4 4v10a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2"></path>
+                                    <path d="M12 14m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"></path>
+                                    <path d="M14 4l0 4l-6 0l0 -4"></path>
+                                </svg>
+                                {{ trans('global.save') }}
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+@endsection
+
+@section('scripts')
+    <script>
+        $(document).ready(function() {
+
+            $("#name").on("input", function() {
+                const inputValue = $(this).val();
+                const words = inputValue.split(" ");
+                for (let i = 0; i < words.length; i++) {
+                    words[i] = words[i].charAt(0).toUpperCase() + words[i].slice(1);
+                }
+                $(this).val(words.join(" "));
+
+                if ($("#suggested-code").prop("checked")) {
+                    const abbreviatedTitle = abbreviateWord($(this).val());
+                    $("#code").val(abbreviatedTitle);
+                }
+            });
+
+            $("#suggested-code").change(function() {
+                if ($(this).prop("checked")) {
+                    $("#code").prop("readonly", true);
+                    $("#code").addClass("bg-gray-500");
+                } else {
+                    $("#code").prop("readonly", false);
+                    $("#code").removeClass("bg-gray-500");
+                }
+            });
+
+            $("#code").on("input", function() {
+                const inputValue = $(this).val();
+                const uppercaseValue = inputValue.toUpperCase();
+                $(this).val(uppercaseValue);
+            });
+
+            $('#submit-button').on('click', function() {
+                let valid = true;
+
+                $("#create-form :input[required]").each(function() {
+                    if (!$(this).val()) {
+                        valid = false;
+                        $(this).addClass("is-invalid");
+                    } else {
+                        $(this).removeClass("is-invalid");
+                    }
+                });
+
+                if (valid) {
+                    $(this).addClass('disabled');
+                } else {
+                    $(this).removeClass('disabled');
+                }
+            });
+
+            function abbreviateWord(word) {
+                word = word.toLowerCase();
+                let result = "";
+                const letters = ['a', 'e', 'i', 'o', 'u'];
+                for (let i = 0; i < word.length; i++) {
+                    const currentChar = word[i];
+                    const nextChar = i < word.length - 1 ? word[i + 1] : null;
+
+                    if (letters.indexOf(currentChar) === -1) {
+                        if (nextChar === null || currentChar !== nextChar) {
+                            result += currentChar;
+                        }
+                    }
+                }
+                result = result.replace(/\s+/g, '-');
+                return result.toUpperCase();
+            }
+        });
+    </script>
+@endsection

@@ -39,7 +39,7 @@
                                         </a>
                                     </div>
                                     <div class="col p-2">
-                                        <a href="{{ route('vendors') }}" class="btn btn-ghost-info w-100">
+                                        <a href="{{ route('vendors.index') }}" class="btn btn-ghost-info w-100">
                                             Vendors
                                         </a>
                                     </div>

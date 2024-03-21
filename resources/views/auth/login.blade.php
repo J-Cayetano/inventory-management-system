@@ -12,7 +12,7 @@
                 <h2 class="h3 text-center mb-3">
                     Login to your account
                 </h2>
-                <form action="{{ route('authenticate') }}" method="POST" autocomplete="off" novalidate>
+                <form action="{{ route('authenticate') }}" id="form" method="POST" autocomplete="off" novalidate>
                     @csrf
                     @method('POST')
                     {{-- Email --}}
@@ -55,9 +55,11 @@
                             @enderror
                         </div>
                     </div>
-
+                    @if (session('error'))
+                        <div class="fs-4 text-red">{{ session('error') }}</div>
+                    @endif
                     <div class="form-footer">
-                        <button type="submit" class="btn btn-primary w-100">Sign in</button>
+                        <button type="submit" id="submit" class="btn btn-primary w-100">Sign in</button>
                     </div>
                 </form>
                 <div class="text-center text-muted mt-3">
@@ -70,4 +72,12 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('scripts')
+    <script>
+        $('#submit').on('click', function() {
+            $(this).addClass('disabled');
+        });
+    </script>
 @endsection

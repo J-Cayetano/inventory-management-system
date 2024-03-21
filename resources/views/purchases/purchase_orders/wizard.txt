@@ -1,0 +1,72 @@
+<div class="container container-narrow">
+        <div class="card card-md">
+            <div class="card-stamp card-stamp-lg">
+                <div class="card-stamp-icon bg-primary">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-truck-delivery" width="24"
+                        height="24" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M7 17m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+                        <path d="M17 17m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0" />
+                        <path d="M5 17h-2v-4m-1 -8h11v12m-4 0h6m4 0h2v-6h-8m0 -5h5l3 5" />
+                        <path d="M3 9l4 0" />
+                    </svg>
+                </div>
+            </div>
+            <div class="card-body text-center py-4 p-sm-5">
+                <h1 class="mt-5">New Purchase Order</h1>
+                <p class="text-muted">
+                    At Nomzz Moto Garage, we're committed to keeping our inventory management tight and efficient. That's
+                    why we stick to a simple rule: <strong>one purchase order, one vendor </strong>.
+                </p>
+            </div>
+            <div class="hr-text hr-text-center hr-text-spaceless">select a vendor</div>
+            <div class="card-body">
+                <div class="tab-content">
+                    <div class="tab-pane active show" id="purchase-form-1" role="tabpanel">
+                        <div class="mb-5">
+                            <div class="form-hint">
+                                By partnering exclusively with one vendor per purchase order, we ensure accuracy and
+                                minimize the
+                                risk of errors. This approach helps us keep a close eye on our stock levels, making sure we
+                                always
+                                have what we need when our customers do.
+                                <br><br>
+                                It's all part of our dedication to delivering top-notch
+                                service and keeping our operations running smoothly.
+                            </div>
+                        </div>
+                        <div>
+                            <label class="form-label">Vendor</label>
+                            <livewire:vendor-select />
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="purchase-form-2" role="tabpanel">
+                        <h1>Hello</h1>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        {{-- Progress and Action Buttons --}}
+        <div class="row align-items-center mt-3">
+            <div class="col-4">
+                <div class="progress">
+                    <div class="progress-bar" style="width: 25%" role="progressbar" aria-valuenow="25" aria-valuemin="0"
+                        aria-valuemax="100">
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="btn-list justify-content-end">
+                    <button class="btn btn-secondary">
+                        Back
+                    </button>
+                    <a href="#purchase-form-2" class="btn btn-primary nav-link" data-bs-toggle="tab" aria-selected="false"
+                        role="tab" tabindex="-1">
+                        Continue
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>

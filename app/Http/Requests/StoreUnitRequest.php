@@ -8,13 +8,22 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class StoreUnitRequest extends FormRequest
 {
+    public $table;
+
+    public function __construct(
+        public Unit $model,
+    ) {
+        $this->table = $this->model->getTable();
+    }
+
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return Gate::allows((new Unit())->getTable() . '_store');
+        return Gate::allows($this->table . '_store');
     }
+
 
     /**
      * Get the validation rules that apply to the request.
@@ -24,8 +33,8 @@ class StoreUnitRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'code' => ['required', 'regex:/^[a-zA-Z0-9\-]+$/', 'unique:' . (new Unit())->getTable() . ',code,NULL,id,deleted_at,NULL'],
-            'title' => ['required', 'string', 'unique:' . (new Unit())->getTable() . ',title,NULL,id,deleted_at,NULL']
+            'code' => ['required', 'regex:/^[a-zA-Z0-9\-]+$/', 'unique:' . $this->table . ',code,NULL,id,deleted_at,NULL'],
+            'name' => ['required', 'string', 'unique:' . $this->table . ',name,NULL,id,deleted_at,NULL'],
         ];
     }
 }

@@ -77,7 +77,7 @@
                                 <th>Last Action At</th>
                                 <th>Last Action By</th>
                                 <th>Status</th>
-                                <th>Actions</th>
+                                <th width="150px"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -153,6 +153,10 @@
                     searchable: false
                 },
             ],
+            "columnDefs": [{
+                targets: -1,
+                className: 'text-end'
+            }],
             "createdRow": function(row, data, dataIndex) {
                 var status = $(data.status).attr('value');
                 if (status === false) {
@@ -167,11 +171,14 @@
         entries.find('select').removeClass('form-select');
         $('.dataTables_paginate').appendTo('#pagination-datatable');
         $('.dataTables_info').appendTo('#information-datatable');
-
+        let timeout;
         $('#search-datatable').on('keyup', function() {
-            datatable.search($(this).val()).draw();
-        });
+            clearTimeout(timeout);
 
+            timeout = setTimeout(() => {
+                datatable.search($(this).val()).draw();
+            }, 1000);
+        });
         $('#deactivate_switch').on('click', function() {
             datatable.ajax.reload();
         });

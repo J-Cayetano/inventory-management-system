@@ -20,7 +20,7 @@
                             <div class="col-sm-4 p-5">
                                 <div class="form-group">
                                     <label class="required form-label"
-                                        for="code">{{ __('cruds.categories.fields.code') }}</label>
+                                        for="code">{{ __('cruds.vendors.fields.code') }}</label>
                                     <input class="form-control {{ $errors->has('code') ? 'is-invalid' : '' }}"
                                         type="text" name="code" id="code" value="{{ old('code', '') }}" required>
                                     @error('code')
@@ -31,14 +31,14 @@
                                         <span class="form-check-label">Use Suggested Code</span>
                                     </label>
                                     <span
-                                        class="help-block text-info fs-5">{{ __('cruds.categories.fields.code_helper') }}</span>
+                                        class="help-block text-info fs-5">{{ __('cruds.vendors.fields.code_helper') }}</span>
                                 </div>
 
                             </div>
                             {{-- Name --}}
                             <div class="col-sm-8 p-5">
                                 <div class="form-group">
-                                    <label class="required form-label" for="name">Name</label>
+                                    <label class="required form-label" for="name">{{ __('cruds.vendors.fields.name') }}</label>
                                     <input class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}"
                                         type="text" name="name" id="name" value="{{ old('name', '') }}" required>
                                     @error('name')
@@ -53,7 +53,7 @@
                             {{-- City --}}
                             <div class="col-sm-4 p-5">
                                 <div class="form-group">
-                                    <label class="required form-label" for="city">City</label>
+                                    <label class="required form-label" for="city">{{ __('cruds.vendors.fields.city') }}</label>
                                     <input class="form-control word-case {{ $errors->has('city') ? 'is-invalid' : '' }}"
                                         type="text" name="city" id="city" value="{{ old('city', '') }}"
                                         required>
@@ -67,7 +67,7 @@
                             {{-- Address Line --}}
                             <div class="col-sm-8 p-5">
                                 <div class="form-group">
-                                    <label class="required form-label" for="address">Address</label>
+                                    <label class="required form-label" for="address">{{ __('cruds.vendors.fields.address') }}</label>
                                     <input class="form-control word-case {{ $errors->has('address') ? 'is-invalid' : '' }}"
                                         type="text" name="address" id="address" value="{{ old('address', '') }}"
                                         required>
@@ -82,7 +82,7 @@
                         <div class="row g-2">
                             <div class="col-sm-4 p-5">
                                 <div class="form-group">
-                                    <label class="required form-label" for="email">Email</label>
+                                    <label class="required form-label" for="email">{{ __('cruds.vendors.fields.email') }}</label>
                                     <input class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}"
                                         type="email" name="email" placeholder="vendor@email.com" id="email"
                                         value="{{ old('email', '') }}" required>
@@ -95,7 +95,7 @@
                             </div>
                             <div class="col-sm-4 p-5">
                                 <div class="form-group">
-                                    <label class="required form-label" for="contact">Contact No.</label>
+                                    <label class="required form-label" for="contact">{{ __('cruds.vendors.fields.contact') }}</label>
                                     <input class="form-control {{ $errors->has('contact') ? 'is-invalid' : '' }}"
                                         type="phone" name="contact" placeholder="09..." maxlength="11" id="contact"
                                         value="{{ old('contact', '') }}" required>

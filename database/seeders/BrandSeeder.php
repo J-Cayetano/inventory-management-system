@@ -15,8 +15,38 @@ class BrandSeeder extends Seeder
     {
         Brand::insert([
             [
-                'code' => 'Brand X',
-                'name' => 'Branded X',
+                'code' => 'FTO',
+                'name' => 'Faito',
+                'created_at' => '2024-01-01 05:12:03',
+                'created_by' => 'imsystem.0001@gmail.com',
+            ],
+            [
+                'code' => 'MTKN',
+                'name' => 'Mutakin',
+                'created_at' => '2024-01-01 05:12:03',
+                'created_by' => 'imsystem.0001@gmail.com',
+            ],
+            [
+                'code' => 'MTLT',
+                'name' => 'Motolite',
+                'created_at' => '2024-01-01 05:12:03',
+                'created_by' => 'imsystem.0001@gmail.com',
+            ],
+            [
+                'code' => 'PTSBK',
+                'name' => 'Pitsbike',
+                'created_at' => '2024-01-01 05:12:03',
+                'created_by' => 'imsystem.0001@gmail.com',
+            ],
+            [
+                'code' => 'SCP',
+                'name' => 'SC Project',
+                'created_at' => '2024-01-01 05:12:03',
+                'created_by' => 'imsystem.0001@gmail.com',
+            ],
+            [
+                'code' => 'RS8',
+                'name' => 'RS8',
                 'created_at' => '2024-01-01 05:12:03',
                 'created_by' => 'imsystem.0001@gmail.com',
             ],

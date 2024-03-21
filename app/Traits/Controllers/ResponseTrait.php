@@ -2,9 +2,11 @@
 
 namespace App\Traits\Controllers;
 
+use Illuminate\View\View;
+
 trait ResponseTrait
 {
-    public function viewResponse(string $view)
+    public function viewResponse(string $view): View
     {
         return view($view, [
             "title" => $this->title,
@@ -12,7 +14,7 @@ trait ResponseTrait
         ]);
     }
 
-    public function viewDataResponse(string $view, $key, $data)
+    public function viewDataResponse(string $view, $key, $data): View
     {
         return view($view, [
             "title" => $this->title,
@@ -21,9 +23,17 @@ trait ResponseTrait
         ]);
     }
 
+    public function viewInformationResponse(string $view, $data)
+    {
+        $data['title'] = $this->title;
+        $data['key'] = $this->table;
+
+        return view($view, $data);
+    }
+
     public function redirectResponse(string $key, string $message)
     {
-        return redirect()->to(route($this->table))->with($key, $message);
+        return redirect()->to(route($this->table . ".index"))->with($key, $message);
     }
 
     public function jsonResponse(
